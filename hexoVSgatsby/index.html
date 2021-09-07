@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    
+
+    
+    <title>Hexo &amp; Gatsby 차이점(주관적) | VNTG 기술블로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="" />
+    
+    <meta name="description" content="배종강@기술지원실1. Setup Process    Hexo Gatsby    난이도 낮음 비교적 있음   로딩속도 빠름 느림   2. Developer Experience    Hexo Gatsby    블로그 구축 Tag Plugin을 통해 쉽게 간단한 컨텐츠 구축 비교적 더 raw함.Javascript에 대한 이해도 더 필요   커스터마이징 약간의 커">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo &amp; Gatsby 차이점(주관적)">
+<meta property="og:url" content="https://vntgcorp.github.io/hexoVSgatsby/index.html">
+<meta property="og:site_name" content="VNTG 기술블로그">
+<meta property="og:description" content="배종강@기술지원실1. Setup Process    Hexo Gatsby    난이도 낮음 비교적 있음   로딩속도 빠름 느림   2. Developer Experience    Hexo Gatsby    블로그 구축 Tag Plugin을 통해 쉽게 간단한 컨텐츠 구축 비교적 더 raw함.Javascript에 대한 이해도 더 필요   커스터마이징 약간의 커">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://vntgcorp.github.io/image/hexogatsby.png">
+<meta property="article:published_time" content="2021-06-03T04:05:46.000Z">
+<meta property="article:modified_time" content="2021-09-07T02:22:00.667Z">
+<meta property="article:author" content="VNTG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vntgcorp.github.io/image/hexogatsby.png">
+    
+
+    
+        <link rel="alternate" href="http://blog.vntgcorp.com/" title="VNTG 기술블로그" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/../image/favntg.png" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4TM9D66BJC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4TM9D66BJC');
+</script>
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle"><span style="color:black"><strong>Tech Blog</strong></span></p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/CICD/">CICD</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/ClickUp/">ClickUp</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Docker/">Docker</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/FastAPI/">FastAPI</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Static-Site-Generator/">Static Site Generator</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Static-Site-Generator/Gatsby/">Gatsby</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Static-Site-Generator/Hexo/">Hexo</a></li></ul></li></ul>
+                                
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Static-Site-Generator/">Static Site Generator</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-hexoVSgatsby" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Hexo &amp; Gatsby 차이점(주관적)
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/hexoVSgatsby/" class="article-date">
+       <time datetime="2021-06-03T04:05:46.000Z" itemprop="datePublished">2021-06-03</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/hexoVSgatsby/" class="article-date">
+     <time datetime="2021-09-07T02:22:00.667Z" itemprop="dateModified">2021-09-07</time>
+  </a>
+</div>
+
+
+                
+
+                
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h6 id="배종강-기술지원실"><a href="#배종강-기술지원실" class="headerlink" title="배종강@기술지원실"></a>배종강@기술지원실</h6><h1 id="1-Setup-Process"><a href="#1-Setup-Process" class="headerlink" title="1. Setup Process"></a>1. Setup Process</h1><table>
+<thead>
+<tr>
+<th></th>
+<th>Hexo</th>
+<th>Gatsby</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>난이도</td>
+<td>낮음</td>
+<td>비교적 있음</td>
+</tr>
+<tr>
+<td>로딩속도</td>
+<td>빠름</td>
+<td>느림</td>
+</tr>
+</tbody></table>
+<h1 id="2-Developer-Experience"><a href="#2-Developer-Experience" class="headerlink" title="2. Developer Experience"></a>2. Developer Experience</h1><table>
+<thead>
+<tr>
+<th></th>
+<th>Hexo</th>
+<th>Gatsby</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>블로그 구축</td>
+<td>Tag Plugin을 통해 쉽게 간단한 컨텐츠 구축</td>
+<td>비교적 더 raw함.Javascript에 대한 이해도 더 필요</td>
+</tr>
+<tr>
+<td>커스터마이징</td>
+<td>약간의 커스터마이징 가능</td>
+<td>React와 Query Language를 통해 더 다이나믹한 커스터마이징 가능</td>
+</tr>
+<tr>
+<td>플러그인</td>
+<td>250개 이상</td>
+<td>500개 이상</td>
+</tr>
+</tbody></table>
+<h1 id="3-Community-amp-Documentation"><a href="#3-Community-amp-Documentation" class="headerlink" title="3. Community &amp; Documentation"></a>3. Community &amp; Documentation</h1><table>
+<thead>
+<tr>
+<th></th>
+<th>Hexo</th>
+<th>Gatsby</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>커뮤니티</td>
+<td>80%가 중국커뮤니티</td>
+<td>Hexo보다 더 넓은 커뮤니티 보유. 대부분 영어권</td>
+</tr>
+<tr>
+<td>다큐멘테이션</td>
+<td>한국어버전 보유</td>
+<td>대부분 영어</td>
+</tr>
+</tbody></table>
+<h1 id="4-Github-Deploy"><a href="#4-Github-Deploy" class="headerlink" title="4. Github Deploy"></a>4. Github Deploy</h1><table>
+<thead>
+<tr>
+<th></th>
+<th>Hexo</th>
+<th>Gatsby</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>배포속도</td>
+<td>빠름</td>
+<td>비교적 느림</td>
+</tr>
+<tr>
+<td>과정</td>
+<td>One-Command Deployment을 통해 바로 배포가능</td>
+<td>소스코드에서 코드삽입후 배포</td>
+</tr>
+</tbody></table>
+<h2 id="총평"><a href="#총평" class="headerlink" title="총평:"></a>총평:</h2><h3 id="HEXO-마크업블로그에-최적화-쉽고-빠른-블로그에-적합"><a href="#HEXO-마크업블로그에-최적화-쉽고-빠른-블로그에-적합" class="headerlink" title="HEXO: 마크업블로그에 최적화. 쉽고 빠른 블로그에 적합."></a>HEXO: 마크업블로그에 최적화. 쉽고 빠른 블로그에 적합.</h3><h3 id="GATSBY-커스터마이징에-최적화-Beginner들한테-다소-어렵고-복잡할수-있음"><a href="#GATSBY-커스터마이징에-최적화-Beginner들한테-다소-어렵고-복잡할수-있음" class="headerlink" title="GATSBY: 커스터마이징에 최적화. Beginner들한테 다소 어렵고 복잡할수 있음."></a>GATSBY: 커스터마이징에 최적화. Beginner들한테 다소 어렵고 복잡할수 있음.</h3>
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://vntgcorp.github.io/hexoVSgatsby/" data-id="ckt9kq38k00084ouwhyufdc1y" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "VNTG"
+        },
+        "headline": "Hexo &amp; Gatsby 차이점(주관적)",
+        "image": "https://VntgCorp.github.io../../image/hexogatsby.png",
+        "keywords": "",
+        "genre": "Static Site Generator",
+        "datePublished": "2021-06-03",
+        "dateCreated": "2021-06-03",
+        "dateModified": "2021-09-07",
+        "url": "https://VntgCorp.github.io/hexoVSgatsby/",
+        "description": "배종강@기술지원실1. Setup Process
+
+
+
+Hexo
+Gatsby
+
+
+
+난이도
+낮음
+비교적 있음
+
+
+로딩속도
+빠름
+느림
+
+
+2. Developer Experience
+
+
+
+Hexo
+Gatsby
+
+
+
+블로그 구축
+Tag Plugin을 통해 쉽게 간단한 컨텐츠 구축
+비교적 더 raw함.Javascript에 대한 이해도 더 필요
+
+
+커스터마이징
+약간의 커",
+        "wordCount": 118
+    }
+</script>
+
+</article>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>Contact:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="envelope" href="mailto:techblog@vntgcorp.com" target="_blank" rel="noopener">
+                        <i class="icon fa fa-envelope"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/VntgCorp" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="home" href="https://www.vntgcorp.com/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-home"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="http://blog.vntgcorp.com/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/newpostmanual/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            포스트 추가 방법
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/hexo/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Hexo 설치 및 사용 매뉴얼</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/DockerWithoutDesktop/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/dockermoney.png)" alt="Docker Desktop 없이 Windows에서 Docker 사용하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Docker/">Docker</a></p>
+                            <p class="item-title"><a href="/DockerWithoutDesktop/" class="title">Docker Desktop 없이 Windows에서 Docker 사용하기</a></p>
+                            <p class="item-date"><time datetime="2021-09-07T07:00:00.000Z" itemprop="datePublished">2021-09-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/fastapi/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/logo-teal.png)" alt="FastAPI, WebSocket, 그리고 Docker" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/FastAPI/">FastAPI</a></p>
+                            <p class="item-title"><a href="/fastapi/" class="title">FastAPI, WebSocket, 그리고 Docker</a></p>
+                            <p class="item-date"><time datetime="2021-06-30T07:05:46.000Z" itemprop="datePublished">2021-06-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/clickup/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/clickupthumb.png)" alt="ClickUp 유저 매뉴얼" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ClickUp/">ClickUp</a></p>
+                            <p class="item-title"><a href="/clickup/" class="title">ClickUp 유저 매뉴얼</a></p>
+                            <p class="item-date"><time datetime="2021-06-15T07:05:46.000Z" itemprop="datePublished">2021-06-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/newpostmanual/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/manualthumb.jpg)" alt="포스트 추가 방법" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Static-Site-Generator/">Static Site Generator</a></p>
+                            <p class="item-title"><a href="/newpostmanual/" class="title">포스트 추가 방법</a></p>
+                            <p class="item-date"><time datetime="2021-06-09T01:05:46.000Z" itemprop="datePublished">2021-06-09</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/hexoVSgatsby/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/hexogatsby.png)" alt="Hexo &amp; Gatsby 차이점(주관적)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Static-Site-Generator/">Static Site Generator</a></p>
+                            <p class="item-title"><a href="/hexoVSgatsby/" class="title">Hexo &amp; Gatsby 차이점(주관적)</a></p>
+                            <p class="item-date"><time datetime="2021-06-03T04:05:46.000Z" itemprop="datePublished">2021-06-03</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CICD/">CICD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ClickUp/">ClickUp</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/FastAPI/">FastAPI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Static-Site-Generator/">Static Site Generator</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Static-Site-Generator/Gatsby/">Gatsby</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Static-Site-Generator/Hexo/">Hexo</a><span class="category-list-count">1</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class=""></a>
+                </h1>
+                <p>&copy; VNTG. All rights reserved. Powered by GitHub Pages.</p>
+                
+                <p> Created by <a href="https://github.com/jonggang08/VntgTechBlog" target="_blank">배종강 (Bae Jong-Gang)</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://vntgcorp.github.io/hexoVSgatsby/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

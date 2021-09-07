@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    
+
+    
+    <title>ClickUp 유저 매뉴얼 | VNTG 기술블로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="" />
+    
+    <meta name="description" content="테디@기술지원실 1. ClickUp 소개   - ClickUp을 이용하여 할 수 있는 것들 2. ClickUp 화면 구성   - 전체 화면의 구성과 역할 3. SPACES   - 작업공간의 생성과 설정 관리 4. Lists   - List의 생성 및 조회 관리  5. Contents   - 리스트의 컨텐츠를 보기 위한 컬럼 생성 관리와 조회 방식     C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ClickUp 유저 매뉴얼">
+<meta property="og:url" content="https://vntgcorp.github.io/clickup/index.html">
+<meta property="og:site_name" content="VNTG 기술블로그">
+<meta property="og:description" content="테디@기술지원실 1. ClickUp 소개   - ClickUp을 이용하여 할 수 있는 것들 2. ClickUp 화면 구성   - 전체 화면의 구성과 역할 3. SPACES   - 작업공간의 생성과 설정 관리 4. Lists   - List의 생성 및 조회 관리  5. Contents   - 리스트의 컨텐츠를 보기 위한 컬럼 생성 관리와 조회 방식     C">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://vntgcorp.github.io/image/clickupthumb.png">
+<meta property="article:published_time" content="2021-06-15T07:05:46.000Z">
+<meta property="article:modified_time" content="2021-09-07T02:22:00.666Z">
+<meta property="article:author" content="VNTG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vntgcorp.github.io/image/clickupthumb.png">
+    
+
+    
+        <link rel="alternate" href="http://blog.vntgcorp.com/" title="VNTG 기술블로그" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/../image/favntg.png" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4TM9D66BJC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4TM9D66BJC');
+</script>
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle"><span style="color:black"><strong>Tech Blog</strong></span></p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/CICD/">CICD</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/ClickUp/">ClickUp</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Docker/">Docker</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/FastAPI/">FastAPI</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Static-Site-Generator/">Static Site Generator</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Static-Site-Generator/Gatsby/">Gatsby</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Static-Site-Generator/Hexo/">Hexo</a></li></ul></li></ul>
+                                
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/ClickUp/">ClickUp</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-clickup" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        ClickUp 유저 매뉴얼
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/clickup/" class="article-date">
+       <time datetime="2021-06-15T07:05:46.000Z" itemprop="datePublished">2021-06-15</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/clickup/" class="article-date">
+     <time datetime="2021-09-07T02:22:00.666Z" itemprop="dateModified">2021-09-07</time>
+  </a>
+</div>
+
+
+                
+
+                
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h6 id="테디-기술지원실"><a href="#테디-기술지원실" class="headerlink" title="테디@기술지원실"></a>테디@기술지원실</h6><ul>
+<li><p><font size="4"><b><a href="#C1">1. ClickUp 소개</a></b></font></p>
+  - ClickUp을 이용하여 할 수 있는 것들</li>
+<li><p><font size="4"><b><a href="#C2">2. ClickUp 화면 구성</a></b></font></p>
+  - 전체 화면의 구성과 역할</li>
+<li><p><font size="4"><b><a href="#C3">3. SPACES</a></b></font></p>
+  - 작업공간의 생성과 설정 관리</li>
+<li><p><font size="4"><b><a href="#C4">4. Lists</a></b></font></p>
+  - List의 생성 및 조회 관리 </li>
+<li><p><font size="4"><b><a href="#C5">5. Contents</a></b></font></p>
+  - 리스트의 컨텐츠를 보기 위한 컬럼 생성 관리와 조회 방식</li>
+</ul>
+<hr>
+<hr>
+
+<h2 id="C1"><font size="6"><b>ClickUp 소개</b></font></h2>
+
+<h2 id="1-1-ClickUp이란"><a href="#1-1-ClickUp이란" class="headerlink" title="1.1 ClickUp이란?"></a>1.1 ClickUp이란?</h2><ul>
+<li>채팅, 할 일 관리를 위한 리스트 생성, 프로젝트 관리, 칸반 보드, 칸트 차트, 공유 캘린더 등 <strong>협업 기능들을 모두 통합하고</strong> , 그 기능들과 외부 기능들 간의 데이터 연동까지 제공하는 <strong>문서 기반의 All in One 협업 Tool</strong></li>
+<li>페이지 내에서 정리한 프로젝트, 일정, 업무 내용을 칸반 보드, 캘린더, Gantt 차트로 별도 페이지에서 목적에 맞게 한 눈에 파악할 수 있도록 시각적으로 인지시켜 줌.<center><img src="../image/clickup1.1.png" width=700px></center></li>
+</ul>
+<h2 id="1-2-ClickUp으로-할-수-있는-것"><a href="#1-2-ClickUp으로-할-수-있는-것" class="headerlink" title="1.2 ClickUp으로 할 수 있는 것"></a>1.2 ClickUp으로 할 수 있는 것</h2><ul>
+<li>협업이 필요한 모든 활동들을 Task로 등록하여 다양한 형태의 View로 관리<center><img src="../image/clickup1.2.png" width=700px></center></li>
+</ul>
+<h2 id="1-3-목적에-맞는-뷰-서비스"><a href="#1-3-목적에-맞는-뷰-서비스" class="headerlink" title="1.3 목적에 맞는 뷰 서비스"></a>1.3 목적에 맞는 뷰 서비스</h2><ul>
+<li>기본적으로 List, Board, Box, Calendar, Gantt, Timeline, Table, 최근 Mind Map까지 총 8가지 타입의 뷰 서비스를 제공한다.</li>
+<li>워크플로우를 시각적으로 파악하는 데 용이하다.</li>
+<li>업무 관리 리스트를 작성하면 서로의 현황을 쉽게 파악할 수 있어 협업의 효율을 높인다.</li>
+<li>Task를 다양한 조회와 알람 기능으로 업무 누락 발생을 최소화하고 불필요한 커뮤니케이션을 줄일 수 있다.<center><img src="../image/clickup1.3.png" width=700px></center></li>
+</ul>
+<p><a href="https://platum.kr/archives/141842" target="_blank"><span style="color:blue">출처)문서 기반 올인원 협업툴, ‘클릭업(Click up)’</span></a></p>
+<h2 id="1-4-실시간-대화와-비동기-커뮤니케이션-지원"><a href="#1-4-실시간-대화와-비동기-커뮤니케이션-지원" class="headerlink" title="1.4 실시간 대화와 비동기 커뮤니케이션 지원"></a>1.4 실시간 대화와 비동기 커뮤니케이션 지원</h2><p>❖ 업무 중 방해를 최소화하는 Deep Work를 위한 비동기 커뮤니케이션을 지향<br>❖컨텍스트 스위칭을 최소화하고 실시간 커뮤니케이션과 비동기 커뮤니케이션을 동시에 할 수 있도록 내부 채팅 서비스를 제공<br>❖ 비동기 커뮤니케이션을 위해서는 작업 중인 내용 우측에서 코멘트 기능을 이용하고 실시간 커뮤니케이션이 필요할 때는 클릭업 내부에서 채팅서비스를 이용할 수 있다.</p>
+<center><img src="../image/clickup1.4.png" width=700px></center>
+<a href="https://platum.kr/archives/141842" target="_blank"><span style="color:blue">출처)문서 기반 올인원 협업툴, ‘클릭업(Click up)’</span></a>
+
+<h2 id="1-5-1000개-이상의-서비스-연동"><a href="#1-5-1000개-이상의-서비스-연동" class="headerlink" title="1.5 1000개 이상의 서비스 연동"></a>1.5 1000개 이상의 서비스 연동</h2><ul>
+<li>타임트래킹 앱인 토글(Toggle), 구글 드라이브, 드롭박스, 깃허브, 구글 캘린더, 아웃룩, 슬랙 등 총 1,000개 이상의 외부 서비스가 연동</li>
+<li>Coda처럼 클릭업 내에서 작업한 내역을 실시간으로 외부 서비스와 연동하는 기능은 없지만, 클릭 한 번이면 외부 서비스에 데이터를 보낼 수 있다.</li>
+</ul>
+<center><img src="../image/clickup1.5.png" width=700px></center>
+
+<p><a href="https://platum.kr/archives/141842" target="_blank"><span style="color:blue">출처)문서 기반 올인원 협업툴, ‘클릭업(Click up)’</span></a></p>
+<h2 id="1-6-장단점-정리"><a href="#1-6-장단점-정리" class="headerlink" title="1.6 장단점 정리"></a>1.6 장단점 정리</h2><h3 id="장점"><a href="#장점" class="headerlink" title="장점"></a>장점</h3><ul>
+<li>다양한 기능<ul>
+<li>하나의 리스트로 여러개의 View로 볼 수 있음</li>
+<li>리스트 안에서 문서작성 마크다운 기능도 훌륭하고, 자유롭게 컬럼들을 추가, 삭제 가능</li>
+<li>Task를 등록하면 다른 Task와 연결 또는 다른 리스트에 등록할 수 있어 모든 기능을 나열할 수 없을 정도 입니다.</li>
+</ul>
+</li>
+<li>외부 다양한 도구들과 연동 <ul>
+<li>Github, Slack, Zapier, 구글드라이브/캘린더 등 1000여개 도구들과 연동이 됩니다.</li>
+</ul>
+</li>
+<li>강한 경쟁력<ul>
+<li>가격정책이 경쟁사에 비해 월 $5로 착합니다.</li>
+<li>빠른 업데이트로 점점 완성도가 높아지고 있습니다.</li>
+</ul>
+</li>
+</ul>
+<h3 id="단점"><a href="#단점" class="headerlink" title="단점"></a>단점</h3><ul>
+<li>아쉬운 안전성과 속도<ul>
+<li>기능이 많아서 그런지 가끔 랙이 걸립니다.</li>
+<li>편집기, Mindmap 등 자잘한 버그가 많습니다.</li>
+</ul>
+</li>
+<li>다양한 기능으로 인한 복잡한 사용법<ul>
+<li>유연함을 추구하여 만들어진 기능들이 조금 어렵습니다.</li>
+<li>기능이 많은 것이 복잡해보여 오히려 단점으로 보이는 것이 있습니다.</li>
+</ul>
+</li>
+<li>따로 노는 느낌의 기능들<ul>
+<li>Doc 기능이 Task와 연결이 아쉽고</li>
+<li>Goal 기능이 Task와 별도로 있고, </li>
+<li>하나의 리스트에서 각 View 기능마다 설정을 잡아주어야 합니다.</li>
+</ul>
+</li>
+<li>부족한 피드백 시스템<ul>
+<li>버그를 제보해도 쉽게 개선이 되지 않습니다. 정기적인 업데이트 계획에 따라 개선되어 보입니다. </li>
+</ul>
+</li>
+</ul>
+<p><a href="https://kingpinstudio.net/clickup/#ClickUpeun_hwagsilhi_gyeongjaeng-uisig-eun_ganghaeboibnida" target="_blank"><span style="color:blue">출처)ClickUp 후기. 범용성은 가장 뛰어난 생산성 도구</span></a></p>
+<hr>
+
+<h2 id="C2"><font size="6"><b>ClickUp 화면 구성</b></font></h2>
+
+<h3 id="2-1-화면-영역-구성"><a href="#2-1-화면-영역-구성" class="headerlink" title="2.1 화면 영역 구성"></a>2.1 화면 영역 구성</h3><center><img src="../image/clickup2.1.png" width=700px></center>
+
+<h2 id="2-2-SIDEBAR-Zone-Search"><a href="#2-2-SIDEBAR-Zone-Search" class="headerlink" title="2.2 SIDEBAR Zone - Search"></a>2.2 SIDEBAR Zone - Search</h2><center><img src="../image/clickup2.2.jpg" width=700px></center>
+
+<p><font size="5"><b>① Search </b></font></p>
+<p>ⓐ 등록되어지는 모든 컨텐츠(Task, 문서, 채팅, 파일, 사용자) 들을 통합하여 검색할 수 있습니다.<br>ⓑ Location을 선택하여 검색되어지는 컨텐츠를 제한할 수 있습니다. </p>
+<h2 id="2-3-SIDEBAR-Zone-Home"><a href="#2-3-SIDEBAR-Zone-Home" class="headerlink" title="2.3 SIDEBAR Zone - Home"></a>2.3 SIDEBAR Zone - Home</h2><center><img src="../image/clickup2.3.png" width=700px></center>
+
+<p><font size="5"><b>② Home</b></font></p>
+<p>ⓐ 나의 Task들을 상태에 따라 볼 수 있습니다. Comment도 모아서 볼수 있습니다.<br>ⓑ 등록된 Task 중 당일 스케줄을 보여줄 수도 있고, 상단의 Show agenda를 클릭하면 스케줄이 아닌 설정된 아젠다 목록을 볼 수 있습니다.   </p>
+<h2 id="2-4-SIDEBAR-Zone-Notifications"><a href="#2-4-SIDEBAR-Zone-Notifications" class="headerlink" title="2.4 SIDEBAR Zone - Notifications"></a>2.4 SIDEBAR Zone - Notifications</h2><center><img src="../image/clickup2.4.png" width=700px></center>
+
+<p><font size="5"><b>③ Notifications</b></font></p>
+<p>ⓐ 나의 Task들이 설정된 알람에 따라 내용을 확인할 수 있습니다. 또한, Comment된 내용까지 확인할 수 있습니다.</p>
+<h2 id="2-5-SIDEBAR-Zone-Spaces"><a href="#2-5-SIDEBAR-Zone-Spaces" class="headerlink" title="2.5 SIDEBAR Zone - Spaces"></a>2.5 SIDEBAR Zone - Spaces</h2><center><img src="../image/clickup2.5.png" width=700px></center>
+
+<p><font size="5"><b>④ SPACES</b></font></p>
+<p>ⓐ SPACES를 누르면 아래에 space들이 나열됩니다. 마찬가지로 하나의 space를 클릭하면 하위 폴더나 List 목록이 보여집니다.<br>ⓑ 특정 space, 폴더, 또는 list를 클릭하면 그 안의 하위에 등록된 모든 Task들을 상태에 따라 보여줍니다.</p>
+<h2 id="2-6-SIDEBAR-Zone-Dashboards"><a href="#2-6-SIDEBAR-Zone-Dashboards" class="headerlink" title="2.6 SIDEBAR Zone - Dashboards"></a>2.6 SIDEBAR Zone - Dashboards</h2><center><img src="../image/clickup2.6.png" width=700px></center>
+
+<p><font size="5"><b>⑤ DASHBOARDS</b></font></p>
+<p>ⓐ DASHBOARDS를 클릭하면 하위 My dashboards와 Shared dashboards로 분리되어 목록이 보여집니다.<br>ⓑ목록에 있는 dashboard를 하나 클릭하면 등록된 Task들의 활동 요약들을 Gragh로 보여집니다. 하나의 그래프 도표는 Widget이라 불리고 상단 Add 버튼을 클릭하면 추가 가능합니다.</p>
+<h2 id="2-7-SIDEBAR-Zone-Docs"><a href="#2-7-SIDEBAR-Zone-Docs" class="headerlink" title="2.7 SIDEBAR Zone - Docs"></a>2.7 SIDEBAR Zone - Docs</h2><center><img src="../image/clickup2.7.png" width=700px></center>
+
+<p><font size="5"><b>⑥ DOCS</b></font></p>
+<p>ⓐ DOCS를 클릭하면 하위 All, Assigned to me, Shared, Private로 분리되어 목록이 보여집니다.<br>ⓑ 하단의 항목 하나를 클릭하면 작성중이거나 작성이 완료된 것 중 내가 볼수 있는 권한이 있는 문서들이 보여집니다.</p>
+<h2 id="2-8-LOCATION-amp-VIEW-Setting-Zone-View-Type"><a href="#2-8-LOCATION-amp-VIEW-Setting-Zone-View-Type" class="headerlink" title="2.8 LOCATION &amp; VIEW Setting Zone - View Type"></a>2.8 LOCATION &amp; VIEW Setting Zone - View Type</h2><p>❖ <font size="5"><b>List</b></font></p>
+<center><img src="../image/clickup2.8.png" width=700px></center>
+
+<ul>
+<li>같은 내용을 Type에 따라 다르게 볼 수 있습니다. </li>
+<li>List는 상태에 따라 구분되어 목록으로 볼 수 있습니다.</li>
+</ul>
+<p>❖ <font size="5"><b>Kanban Board</b></font></p>
+<center><img src="../image/clickup2.8.2.png" width=700px></center>
+
+<ul>
+<li>각 상태의 경계를 구분지어 Task를 두기 때문에 진행 현황을 쉽게 파악할 수 있습니다.</li>
+</ul>
+<p>❖ <font size="5"><b>Box</b></font></p>
+<center><img src="../image/clickup2.8.3.png" width=700px></center>
+
+<ul>
+<li>각 담당자들에 배정된 Task와 진행상태를 요약하여 보여줍니다.</li>
+</ul>
+<p>❖ <font size="5"><b>Calender</b></font> </p>
+<center><img src="../image/clickup2.8.4.png" width=700px></center>
+
+<ul>
+<li>Task들의 일정들을 달력으로 보여줍니다.</li>
+</ul>
+<p>❖ <font size="5"><b>Gantt</b></font></p>
+<center><img src="../image/clickup2.8.5.png" width=700px></center>
+
+<ul>
+<li>Gantt 차트로도 볼 수 있습니다. 이 Gantt 차트 내에서 마우스로 드래그&amp;드롭으로 일정을 변경할 수 있습니다. </li>
+</ul>
+<p>❖ <font size="5"><b>Timeline</b></font></p>
+<center><img src="../image/clickup2.8.6.png" width=700px></center>
+
+<ul>
+<li>날짜 기준으로 Task들을 보여줍니다. </li>
+</ul>
+<p>❖ <font size="5"><b>Workload</b></font></p>
+<center><img src="../image/clickup2.8.7.png" width=700px></center>
+
+<ul>
+<li>담당자 별 진행 Task를 보여줍니다. (Business Upgrade 필요)</li>
+</ul>
+<p>❖ <font size="5"><b>Mindmap</b></font></p>
+<center><img src="../image/clickup2.8.8.png" width=700px></center>
+
+<ul>
+<li>Task들의 상하 관계를 보여줍니다.</li>
+</ul>
+<hr>
+
+<h2 id="C3"><font size="6"><b>SPACES </b></font><h2>
+
+<h2 id="3-1-NEW-SPACE-생성"><a href="#3-1-NEW-SPACE-생성" class="headerlink" title="3.1 NEW SPACE 생성"></a>3.1 NEW SPACE 생성</h2><center><img src="../image/clickup3.1.jpg" width=700px></center>
+
+<h2 id="3-2-SPACE-Setting-Basic"><a href="#3-2-SPACE-Setting-Basic" class="headerlink" title="3.2 SPACE Setting - Basic"></a>3.2 SPACE Setting - Basic</h2><center><img src="../image/clickup3.2.png" width=700px></center>
+
+<p><strong>SPACE 설정을 언제든지 변경할 수 있습니다.</strong></p>
+<ol>
+<li><p>Space 설정 변경을 위한 시작</p>
+<ul>
+<li>Space명 우측 [ … ] 선택</li>
+</ul>
+</li>
+<li><p>Space setting 선택</p>
+</li>
+<li><p>Edit Space 내 변경 대상 선택</p>
+<ul>
+<li>space name</li>
+<li>Owner</li>
+<li>Avatar</li>
+<li>Shared with</li>
+<li>Task statuses</li>
+<li>ClickApps</li>
+<li>Default setting for Views</li>
+</ul>
+</li>
+</ol>
+<h2 id="3-3-SPACE-Setting-Options"><a href="#3-3-SPACE-Setting-Options" class="headerlink" title="3.3 SPACE Setting - Options"></a>3.3 SPACE Setting - Options</h2><center><img src="../image/clickup3.3.png" width=700px></center>
+
+<p><strong>SPACE Option 설정을 언제든지 변경할 수 있습니다.</strong></p>
+<ol>
+<li>Space 설정 변경을 위한 시작<ul>
+<li>Space명 우측 [ … ] 선택</li>
+</ul>
+</li>
+<li> Space 대표 색상 변경</li>
+<li> Space 대표 Icon 변경 </li>
+<li>Space 기타 옵션  <ul>
+<li>Duplicate : 현 Space 복사 추가 생성</li>
+<li>Template Center : Space 아래 폴더나 List의 빠른 생성을 위해 기 등록되어 있는 template 선택 </li>
+<li>Custom Fields : 하위 리스트의 속성들을 생성</li>
+<li>Leave Space : 선택한 Space에서 나가기 위한 설정</li>
+<li>Hide Space : Space 목록에서 보이지 않도록 설정</li>
+<li>Delete : 선택한 Space를 완전 삭제함</li>
+<li>Automations : Task들의 특정 조건에 자동적으로 알림과  같은 Action을 해주는 것을 설정</li>
+</ul>
+</li>
+</ol>
+<hr>
+
+<h2 id="C4"><font size="6"><b>Lists </b></font></h2>
+
+<h2 id="4-1-New-List-생성"><a href="#4-1-New-List-생성" class="headerlink" title="4.1 New List 생성"></a>4.1 New List 생성</h2><center><img src="../image/clickup4.1.png" width=700px></center>
+
+<p><strong>SPACE Option 설정을 언제든지 변경할 수 있습니다.</strong></p>
+<ol>
+<li>Space 내 List 추가를 위한 시작<ul>
+<li>Space명 또는 폴더 우측 [ + ] 선택</li>
+</ul>
+</li>
+<li> New List : Space 아래 생성 </li>
+<li> New Folder : Space 아래 폴더 생성</li>
+<li>Template Center  <ul>
+<li>Browse Templates : List의 빠른 생성을 위해 이전에 등록되어 있는 List Template 선택 </li>
+<li>Save as Template : 용도에 맞게 커스터마이징 된Space, List를 Template Pool에 추가 </li>
+<li>Update existing Template : 템플릿 Pool에 있는 List Template를 현재의 리스트로 Update하여 수정</li>
+</ul>
+</li>
+<li>New Sprint Folder <ul>
+<li>Sprint에 특화된 List를 생성</li>
+<li>Sprint list는 반복 횟수와 기간이 자동 설정되어 생성됨 </li>
+</ul>
+</li>
+</ol>
+<h2 id="4-2-List-Setting-Sprint-List-setting"><a href="#4-2-List-Setting-Sprint-List-setting" class="headerlink" title="4.2 List Setting - Sprint List setting"></a>4.2 List Setting - Sprint List setting</h2><center><img src="../image/clickup4.2.png" width=700px></center>
+
+<p><strong>Lists Option 설정을 언제든지 변경할 수 있습니다.</strong></p>
+<ol>
+<li>Space 내 List 설정을  위한 시작<br> ⓐ 폴더명 또는 List 우측 [ … ] 선택</li>
+<li>Sprint setting : List Type이 Sprint 인 경우의 설정 변경<br> ⓑ Weeks : Sprint 기간 설정<br> ⓒ  Sprint start Day : 출발 요일을 선택<br> ⓓ Sprint estimation : 스프린트에서 구현 가능한 총 Point<br> ⓔ Sprint name : [Index]는 반복 차수와 [START_DATE-END_DATA] 는 해당 Sprint의 기간을 자동 표시 </li>
+</ol>
+<h2 id="4-3-List-Setting-List-status-setting"><a href="#4-3-List-Setting-List-status-setting" class="headerlink" title="4.3 List Setting - List status setting"></a>4.3 List Setting - List status setting</h2><center><img src="../image/clickup4.3.png" width=700px></center>
+
+<p><strong>Sprint, Folder, List의 Task Status 값을 변경할 수 있습니다.</strong></p>
+<ol>
+<li>Space 내 List 설정을  위한 시작<ul>
+<li>Space or 폴더명 or List명 우측 [ … ] 선택</li>
+</ul>
+</li>
+<li>Edit Folder statuses : Task의 진행 상태를 설정하는 기능으로 칸반 구분으로 사용될 수 있습니다.<br> ⓐ Templates : List 성격에 맞게 미리 정의된 상태 Set으로 선택하면 바로 사용 가능<br> ⓑ Active Status : Task 활동에 대한 시작, 준비, 진행 등의 상태를 정의<br> ⓒ Done Status : 작업을 완료한 상태의 표시를 정의함 (ex&gt; Review, Test 등)<br> ⓓ Close Status : 최종 끝났을 씨 보여지는 표시를 정의하는 것으로 무조건 존재하는 상태임<br> ⓔ New template : Status 상태 Set을 Template로 추가합니다. </li>
+</ol>
+<hr>
+
+<h2 id="C5"><font size="6"><b>Contents </b></font></h2>
+
+<h2 id="5-1-List-Contents-List-View-구성"><a href="#5-1-List-Contents-List-View-구성" class="headerlink" title="5.1 List Contents - List View 구성"></a>5.1 List Contents - List View 구성</h2><center><img src="../image/clickup5.1.png" width=700px></center>
+
+<p><strong>Contents 영역의 기본 View는 List 입니다.</strong></p>
+<ol>
+<li>List의 상태 별로 구분되어 Task 목록을 보여줍니다.</li>
+<li> Contents 목록을 보고싶은 형태로 설정을 해줍니다.  </li>
+<li>컬럼을 설정한 항목들로 목록에 보여줍니다. </li>
+</ol>
+<h2 id="5-2-List-Contents-Task-조회-대상-설정"><a href="#5-2-List-Contents-Task-조회-대상-설정" class="headerlink" title="5.2 List Contents - Task 조회 대상 설정"></a>5.2 List Contents - Task 조회 대상 설정</h2><center><img src="../image/clickup5.2.png" width=700px></center>
+
+<ol>
+<li><span style="color:Red"><b>Filter</b></span><ul>
+<li>List 내 속성들 값을 선택하여 해당되는 Task만  조회 할 수있습니다.</li>
+</ul>
+</li>
+<li><span style="color:blue"><b>Group by</b></span><ul>
+<li>기본은 Status이지만 Assignee, Priority 및 Custom Field까지 그룹핑 할 수 있습니다.</li>
+</ul>
+</li>
+<li><span style="color:darkgreen"><b>Show</b></span><ul>
+<li>Task Locations : Task에 위에 속해있는 List 경로를 보여줄 것을 정합니다.</li>
+<li>Show closed tasks : 종료된 Tasks를 보여줄 것을 정합니다.</li>
+<li>Show closed subtasks : 종료된 subtasks를 보여줄 것을 정합니다.</li>
+<li>Show tasks in multiple Lists : 다른 리스트에도 속한 Task를 보여줄지를 정합니다.</li>
+<li>Show empty statuses : 상태가 지정되어 있지 않아도 보여줄지를 정합니다.</li>
+<li>Auto-wrap : subtask들을 자동으로 expand 시키지 않고 접을지를 정합니다.</li>
+</ul>
+</li>
+</ol>
+<h2 id="5-3-List-Contents-Task-등록-및-조회-속성-설정"><a href="#5-3-List-Contents-Task-등록-및-조회-속성-설정" class="headerlink" title="5.3 List Contents - Task 등록 및 조회 속성 설정"></a>5.3 List Contents - Task 등록 및 조회 속성 설정</h2><center><img src="../image/clickup5.3.png" width=700px></center>
+
+<p><b>1. Title 영역에도 많은 기능들을 제공합니다.</b></p>
+<p><img align="left" src="../image/clickupicon1.png">  : subtask를 열거나 숨깁니다. </p>
+<p><img align="left" src="../image/clickupicon2.png">  : List의 상태 별로 구분되어 Task 목록을 보여줍니다. </p>
+<p><img align="left" src="../image/clickupicon3.png">  : subTask 개수를 보여주고, 클릭하면 열거나 숨깁니다. </p>
+<p><img align="left" src="../image/clickupicon4.png">  : subTask를 새로 등록할 수 있습니다.  </p>
+<p><img align="left" src="../image/clickupicon5.png">  : 글 내용이 있음을 알려줍니다. </p>
+<p><img align="left" src="../image/clickupicon6.png">  : 글 제목에 Tag를 등록 할 수 있습니다. </p>
+<p><img align="left" src="../image/clickupicon7.png">  : 제목을 목록 상태에서 변경할 수 있도록 해줍니다. </p>
+
+
+<p><b>2. Column을 클릭하면 설정을 변경할 수 있습니다.</b></p>
+<ul>
+<li><strong>Sort</strong>: Status 별로 선택된 컬럼을 정렬을 합니다.</li>
+<li><strong>Sort entire column</strong>: 전체 Status를 대상으로 선택된 컬럼을 정렬을 합니다. </li>
+<li><strong>Move to start</strong>: Drag&amp;Drop 가능하지만, 컬럼을 한번에 맨 앞으로 보냅니다.</li>
+<li><strong>Move to end</strong>: 컬럼을 한번에 맨 뒤로 보냅니다.</li>
+<li><strong>Insert Left</strong>:  좌측에 신규 컬럼을 추가할 수 있습니다.</li>
+<li><strong>Insert Right</strong>: 우측에 신규 컬럼을 추가할 수 있습니다.</li>
+<li><strong>Calculate</strong>: 컬럼의 속성이 숫자인 경우 합 계산을 해줍니다.</li>
+<li><strong>Hide Column</strong>: 전체 Status를 대상으로 선택된 컬럼을 정렬을 합니다. </li>
+<li><strong>Edit Field</strong>: 컬럼명을 수정합니다.</li>
+<li><strong>Duplicate</strong>: 같은 형태의 컬럼을 복사하여 추가 생성할 수 있습니다.</li>
+<li><strong>Delete</strong>: 선택된 컬럼을 삭제합니다.</li>
+</ul>
+<h2 id="5-4-List-Column-추가"><a href="#5-4-List-Column-추가" class="headerlink" title="5.4 List Column 추가"></a>5.4 List Column 추가</h2><center><img src="../image/clickup5.4.png" width=700px></center>
+
+
+<p><span style="color:Red">①</span> (+)클릭하여 컬럼을 추가합니다. </p>
+<p><span style="color:darkgreen">②</span> 팝업된 메뉴의 좌측은 List의 기본 컬럼과 이미 생성된 컬럼 목록을 보여줍니다.<br>체크표시는 목록에서 보여주는 컬럼입니다.<br>체크표시가 없는 컬럼은 존재는 하나 목록에서 보여지지 않는 컬럼입니다. </p>
+<p><span style="color:darkgreen">③</span> 팝업된 메뉴의 우측은 생성할 컬럼의 Type을 보여줍니다.<br>a. Custom field library : 이전에 등록되어 있는 컬럼을 조회할 수 있고 선택만으로 컬럼을 추가 할수 있습니다.<br>b. Custom field library에 없는 경우 컬럼 속성에 맞는 Type을 선택하여 추가 합니다. </p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://vntgcorp.github.io/clickup/" data-id="ckt9kq38i00044ouw9hlc0gu3" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "VNTG"
+        },
+        "headline": "ClickUp 유저 매뉴얼",
+        "image": "https://VntgCorp.github.io../../image/clickupthumb.png",
+        "keywords": "",
+        "genre": "ClickUp",
+        "datePublished": "2021-06-15",
+        "dateCreated": "2021-06-15",
+        "dateModified": "2021-09-07",
+        "url": "https://VntgCorp.github.io/clickup/",
+        "description": "테디@기술지원실
+1. ClickUp 소개
+  - ClickUp을 이용하여 할 수 있는 것들
+2. ClickUp 화면 구성
+  - 전체 화면의 구성과 역할
+3. SPACES
+  - 작업공간의 생성과 설정 관리
+4. Lists
+  - List의 생성 및 조회 관리 
+5. Contents
+  - 리스트의 컨텐츠를 보기 위한 컬럼 생성 관리와 조회 방식
+
+
+
+
+C",
+        "wordCount": 1752
+    }
+</script>
+
+</article>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>Contact:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="envelope" href="mailto:techblog@vntgcorp.com" target="_blank" rel="noopener">
+                        <i class="icon fa fa-envelope"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/VntgCorp" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="home" href="https://www.vntgcorp.com/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-home"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="http://blog.vntgcorp.com/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/fastapi/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            FastAPI, WebSocket, 그리고 Docker
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/newpostmanual/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">포스트 추가 방법</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/DockerWithoutDesktop/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/dockermoney.png)" alt="Docker Desktop 없이 Windows에서 Docker 사용하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Docker/">Docker</a></p>
+                            <p class="item-title"><a href="/DockerWithoutDesktop/" class="title">Docker Desktop 없이 Windows에서 Docker 사용하기</a></p>
+                            <p class="item-date"><time datetime="2021-09-07T07:00:00.000Z" itemprop="datePublished">2021-09-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/fastapi/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/logo-teal.png)" alt="FastAPI, WebSocket, 그리고 Docker" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/FastAPI/">FastAPI</a></p>
+                            <p class="item-title"><a href="/fastapi/" class="title">FastAPI, WebSocket, 그리고 Docker</a></p>
+                            <p class="item-date"><time datetime="2021-06-30T07:05:46.000Z" itemprop="datePublished">2021-06-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/clickup/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/clickupthumb.png)" alt="ClickUp 유저 매뉴얼" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ClickUp/">ClickUp</a></p>
+                            <p class="item-title"><a href="/clickup/" class="title">ClickUp 유저 매뉴얼</a></p>
+                            <p class="item-date"><time datetime="2021-06-15T07:05:46.000Z" itemprop="datePublished">2021-06-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/newpostmanual/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/manualthumb.jpg)" alt="포스트 추가 방법" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Static-Site-Generator/">Static Site Generator</a></p>
+                            <p class="item-title"><a href="/newpostmanual/" class="title">포스트 추가 방법</a></p>
+                            <p class="item-date"><time datetime="2021-06-09T01:05:46.000Z" itemprop="datePublished">2021-06-09</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/hexoVSgatsby/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/hexogatsby.png)" alt="Hexo &amp; Gatsby 차이점(주관적)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Static-Site-Generator/">Static Site Generator</a></p>
+                            <p class="item-title"><a href="/hexoVSgatsby/" class="title">Hexo &amp; Gatsby 차이점(주관적)</a></p>
+                            <p class="item-date"><time datetime="2021-06-03T04:05:46.000Z" itemprop="datePublished">2021-06-03</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CICD/">CICD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ClickUp/">ClickUp</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/FastAPI/">FastAPI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Static-Site-Generator/">Static Site Generator</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Static-Site-Generator/Gatsby/">Gatsby</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Static-Site-Generator/Hexo/">Hexo</a><span class="category-list-count">1</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class=""></a>
+                </h1>
+                <p>&copy; VNTG. All rights reserved. Powered by GitHub Pages.</p>
+                
+                <p> Created by <a href="https://github.com/jonggang08/VntgTechBlog" target="_blank">배종강 (Bae Jong-Gang)</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://vntgcorp.github.io/clickup/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

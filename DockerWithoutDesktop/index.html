@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    
+
+    
+    <title>Docker Desktop 없이 Windows에서 Docker 사용하기 | VNTG 기술블로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="" />
+    
+    <meta name="description" content="찰리브라운@기술지원실지난 8월31일 Docker Desktop 의 상업적 이용에 대한 유료화가 발표되었습니다.  250인 이하 사업장 and 연매출 1,000만달러 이하의 조건을 만족할경우 계속 무료로 사용가능하긴 하지만, 해당하지 않는다면 내년 1월까지의 유예기간 안에 라이선스 구매나 Docker Desktop을 삭제하고 Podman 같은 대체제를 사용한">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker Desktop 없이 Windows에서 Docker 사용하기">
+<meta property="og:url" content="https://vntgcorp.github.io/DockerWithoutDesktop/index.html">
+<meta property="og:site_name" content="VNTG 기술블로그">
+<meta property="og:description" content="찰리브라운@기술지원실지난 8월31일 Docker Desktop 의 상업적 이용에 대한 유료화가 발표되었습니다.  250인 이하 사업장 and 연매출 1,000만달러 이하의 조건을 만족할경우 계속 무료로 사용가능하긴 하지만, 해당하지 않는다면 내년 1월까지의 유예기간 안에 라이선스 구매나 Docker Desktop을 삭제하고 Podman 같은 대체제를 사용한">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://vntgcorp.github.io/image/dockermoney.png">
+<meta property="article:published_time" content="2021-09-07T07:00:00.000Z">
+<meta property="article:modified_time" content="2021-09-07T05:18:12.273Z">
+<meta property="article:author" content="VNTG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vntgcorp.github.io/image/dockermoney.png">
+    
+
+    
+        <link rel="alternate" href="http://blog.vntgcorp.com/" title="VNTG 기술블로그" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/../image/favntg.png" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4TM9D66BJC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4TM9D66BJC');
+</script>
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle"><span style="color:black"><strong>Tech Blog</strong></span></p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/CICD/">CICD</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/ClickUp/">ClickUp</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Docker/">Docker</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/FastAPI/">FastAPI</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Static-Site-Generator/">Static Site Generator</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Static-Site-Generator/Gatsby/">Gatsby</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Static-Site-Generator/Hexo/">Hexo</a></li></ul></li></ul>
+                                
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Docker/">Docker</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-DockerWithoutDesktop" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Docker Desktop 없이 Windows에서 Docker 사용하기
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/DockerWithoutDesktop/" class="article-date">
+       <time datetime="2021-09-07T07:00:00.000Z" itemprop="datePublished">2021-09-07</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/DockerWithoutDesktop/" class="article-date">
+     <time datetime="2021-09-07T05:18:12.273Z" itemprop="dateModified">2021-09-07</time>
+  </a>
+</div>
+
+
+                
+
+                
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h6 id="찰리브라운-기술지원실"><a href="#찰리브라운-기술지원실" class="headerlink" title="찰리브라운@기술지원실"></a>찰리브라운@기술지원실</h6><p>지난 8월31일 Docker Desktop 의 상업적 이용에 대한 유료화가 발표되었습니다. </p>
+<p>250인 이하 사업장 and 연매출 1,000만달러 이하의 조건을 만족할경우 계속 무료로 사용가능하긴 하지만, 해당하지 않는다면 내년 1월까지의 유예기간 안에 라이선스 구매나 Docker Desktop을 삭제하고 Podman 같은 대체제를 사용한다던지의 선택이 필요해졌습니다.</p>
+<p>Windows/MacOS 사용자라면 거의 Docker Desktop을 사용했기에 많은 개발자들에게 영향이 있을것 같네요.</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.docker.com/get-docker/">https://docs.docker.com/get-docker/</a><br>공식 문서에서 Windows/Mac의 설치방법은 Docker Desktop만 안내됩니다.</p>
+</blockquote>
+<p>앞으로 이 유료화 정책을 각 회사들이 어떻게 회피하거나 받아들이지 궁금합니다만, 오늘은 Windows에 Docker Desktop없이 Docker를 설치해 사용하는 방법을 알아보도록 하겠습니다.</p>
+<blockquote>
+<p>Docker Desktop을 사용하는게 편리성에서 최선의 방법이라는 사실은 변함없습니다.<br>WSL2의 사전 설치가 필요합니다. 이하는 Ubuntu 20.04에서 진행했습니다.<br>복수의 WSL을 사용하는 경우 추가적인 설정이 필요합니다. 이번글에서는 다루지 않습니다.</p>
+</blockquote>
+<ul>
+<li><strong>WSL을 실행합니다.</strong><div align="center">
+<p>
+  <img src="../image/wsl.png" width="640">
+</p>
+검색이나 실행으로 쉽게 찾을 수 있습니다.
+<br>
+<br>
+</div></li>
+</ul>
+<ul>
+<li><p><strong>이하의 계정 추가는 Microsoft Store를 통해 리눅스를 설치했을때 자동생성되는 계정을 사용할 경우 스킵 가능합니다.</strong></p>
+<ul>
+<li><p>계정 추가</p>
+<ul>
+<li>docker를 사용할 계정을 추가합니다.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adduser (username)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>계정에 권한 부여</p>
+<ul>
+<li>생성한 계정에서 sudo 를 가능하게 합니다.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod -aG sudo (username)</span><br></pre></td></tr></table></figure></li>
+<li>사용하는 리눅스 배포판에 따라 명령어는 다를 수 있습니다.<br>
+<br></li>
+</ul>
+</li>
+<li><p>계정을 docker group에 추가</p>
+<ul>
+<li>dockerd와 docker는 socket통신을 하기 때문에 권한이 필요합니다.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo addgroup (username) docker</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>생성한 계정을 default 계정으로 설정</p>
+<ul>
+<li>계정ID 확인<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id -u docuser</span><br></pre></td></tr></table></figure>
+<div align="center">
+<img src="../image/idcheck.png">
+<p>
+예제의 ID는 1001 로 확인됩니다.
+</p>
+<br>
+</div></li>
+<li>WSL의 리눅스 이미지 확인 (Powershell 에서 실행)<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl -l</span><br></pre></td></tr></table></figure>
+<div align="center">
+<img src="../image/linuxcheck.png">
+<p>
+예제의 리눅스 이미지는 Ubuntu 로 확인됩니다.
+</p>
+<br>
+</div></li>
+<li>확인한 정보를 이용해 WSL 기본 계정 지정 (Powershell 에서 실행)<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-ItemProperty Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss\*\ DistributionName | Where-Object -Property DistributionName -eq Ubuntu | Set-ItemProperty -Name DefaultUid -Value 1001</span><br></pre></td></tr></table></figure></li>
+<li>설정반영을 위해 WSL을 재부팅 (Powershell 에서 실행)<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Restart-Service LxssManager</span><br></pre></td></tr></table></figure>
+<br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Docker 설치준비</strong></p>
+<blockquote>
+<p>리눅스 배포판별 설치가이드: <a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/#server">https://docs.docker.com/engine/install/#server</a><br>여기서는 Ubuntu를 기준으로 합니다.</p>
+</blockquote>
+<ul>
+<li>기존 Docker 삭제<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove docker docker-engine docker.io containerd runc</span><br><span class="line">sudo apt-get purge docker-ce docker-ce-cli containerd.io</span><br><span class="line">sudo rm -fr /var/lib/containerd/</span><br></pre></td></tr></table></figure></li>
+<li>필요 패키지 설치<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release</span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure></li>
+<li>Docker 공식 GPG 키<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</span><br></pre></td></tr></table></figure></li>
+<li>Docker stable repo 사용<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository &quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&quot;</span><br></pre></td></tr></table></figure>
+<br></li>
+</ul>
+</li>
+<li><p><strong>Docker 설치</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install docker-ce docker-ce-cli containerd.io</span><br><span class="line">sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose</span><br><span class="line">sudo chmod +x /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+<br></li>
+<li><p><strong>Docker daemon(dockerd) 실행</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dockerd</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>스크린샷과 같은 메시지가 표시되면 dockerd가 실행된겁니다.</p>
+<center><img src="../image/dockerdstart.png"></center>
+<br></li>
+<li><p>WSL 터미널을 하나 더 열어 잘 실행되는지 확인합니다.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
+<center><img src="../image/helloworld.png"></center>
+<br></li>
+<li><p>Powershell에서도 실행해봅니다.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl docker run hello-world</span><br></pre></td></tr></table></figure>
+<center><img src="../image/helloworldps.png"></center>
+<br>
+<br></li>
+</ul>
+</li>
+<li><p><strong>Docker-compose 실행</strong></p>
+<center><img src="../image/dockercomposeps.png"></center>
+<div align="center">
+<p>
+  Powershell에서 docker-compose도 문제없습니다.
+</p>
+<br>
+</div>
+
+<ul>
+<li>퍼포먼스를 위해서는 Windows-&gt;WSL 호출보다 WSL-&gt;windows 호출이 더 효율적이라고 알려져있습니다.<div align="center">
+<img src="../image/dockercompose.png"
+<p>
+성능을 위해서는 이렇게 쓰는게 좋습니다. (참고:https://docs.microsoft.com/en-us/windows/wsl/interop)
+</p>
+<br>
+</div></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>VScode 사용</strong><ul>
+<li>WSL에서 명령어 하나로 해당 디렉토리를 VScode로 부를 수 있습니다.<center><img src="../image/vscoderun.png"></center>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">code .</span><br></pre></td></tr></table></figure></li>
+<li>VScode가 실행되며 해당 디렉토리의 파일을 불러옵니다.<center><img src="../image/vscode.png"></center>
+<div align="center">
+<p>
+docker 플러그인을 통해 docker-compose up 명령이 잘 실행되는걸 볼 수 있습니다.
+</p>
+<br>
+</div></li>
+</ul>
+</li>
+</ul>
+<p>Docker Desktop없이 Docker를 설치하고 실행하는 방법을 알아봤습니다. 앞으로 Docker Desktop사용자들은 유료화를 어떻게 대응해나갈까요?</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://vntgcorp.github.io/DockerWithoutDesktop/" data-id="ckt9kq38e00014ouw0okq0gkb" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "VNTG"
+        },
+        "headline": "Docker Desktop 없이 Windows에서 Docker 사용하기",
+        "image": "https://VntgCorp.github.io../../image/dockermoney.png",
+        "keywords": "",
+        "genre": "Docker",
+        "datePublished": "2021-09-07",
+        "dateCreated": "2021-09-07",
+        "dateModified": "2021-09-07",
+        "url": "https://VntgCorp.github.io/DockerWithoutDesktop/",
+        "description": "찰리브라운@기술지원실지난 8월31일 Docker Desktop 의 상업적 이용에 대한 유료화가 발표되었습니다. 
+250인 이하 사업장 and 연매출 1,000만달러 이하의 조건을 만족할경우 계속 무료로 사용가능하긴 하지만, 해당하지 않는다면 내년 1월까지의 유예기간 안에 라이선스 구매나 Docker Desktop을 삭제하고 Podman 같은 대체제를 사용한",
+        "wordCount": 482
+    }
+</script>
+
+</article>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>Contact:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="envelope" href="mailto:techblog@vntgcorp.com" target="_blank" rel="noopener">
+                        <i class="icon fa fa-envelope"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/VntgCorp" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="home" href="https://www.vntgcorp.com/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-home"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="http://blog.vntgcorp.com/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/fastapi/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">FastAPI, WebSocket, 그리고 Docker</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/DockerWithoutDesktop/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/dockermoney.png)" alt="Docker Desktop 없이 Windows에서 Docker 사용하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Docker/">Docker</a></p>
+                            <p class="item-title"><a href="/DockerWithoutDesktop/" class="title">Docker Desktop 없이 Windows에서 Docker 사용하기</a></p>
+                            <p class="item-date"><time datetime="2021-09-07T07:00:00.000Z" itemprop="datePublished">2021-09-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/fastapi/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/logo-teal.png)" alt="FastAPI, WebSocket, 그리고 Docker" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/FastAPI/">FastAPI</a></p>
+                            <p class="item-title"><a href="/fastapi/" class="title">FastAPI, WebSocket, 그리고 Docker</a></p>
+                            <p class="item-date"><time datetime="2021-06-30T07:05:46.000Z" itemprop="datePublished">2021-06-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/clickup/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/clickupthumb.png)" alt="ClickUp 유저 매뉴얼" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ClickUp/">ClickUp</a></p>
+                            <p class="item-title"><a href="/clickup/" class="title">ClickUp 유저 매뉴얼</a></p>
+                            <p class="item-date"><time datetime="2021-06-15T07:05:46.000Z" itemprop="datePublished">2021-06-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/newpostmanual/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/manualthumb.jpg)" alt="포스트 추가 방법" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Static-Site-Generator/">Static Site Generator</a></p>
+                            <p class="item-title"><a href="/newpostmanual/" class="title">포스트 추가 방법</a></p>
+                            <p class="item-date"><time datetime="2021-06-09T01:05:46.000Z" itemprop="datePublished">2021-06-09</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/hexoVSgatsby/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/hexogatsby.png)" alt="Hexo &amp; Gatsby 차이점(주관적)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Static-Site-Generator/">Static Site Generator</a></p>
+                            <p class="item-title"><a href="/hexoVSgatsby/" class="title">Hexo &amp; Gatsby 차이점(주관적)</a></p>
+                            <p class="item-date"><time datetime="2021-06-03T04:05:46.000Z" itemprop="datePublished">2021-06-03</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CICD/">CICD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ClickUp/">ClickUp</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/FastAPI/">FastAPI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Static-Site-Generator/">Static Site Generator</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Static-Site-Generator/Gatsby/">Gatsby</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Static-Site-Generator/Hexo/">Hexo</a><span class="category-list-count">1</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class=""></a>
+                </h1>
+                <p>&copy; VNTG. All rights reserved. Powered by GitHub Pages.</p>
+                
+                <p> Created by <a href="https://github.com/jonggang08/VntgTechBlog" target="_blank">배종강 (Bae Jong-Gang)</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://vntgcorp.github.io/DockerWithoutDesktop/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    
+
+    
+    <title>FastAPI, WebSocket, 그리고 Docker | VNTG 기술블로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="" />
+    
+    <meta name="description" content="까를로스@기술지원실Intro최근(이라고 하기에는 좀 시간이 흘렀지만) python framework계에는 다양한 프레임워크들이 속속 시장 진입을 하는 것 같다. 그중에서도 가장 주목을 받는 프레임워크는 아마도 FastAPI 일 것이다. 이름부터가 빠르다 + API 이니…이름 만으로도 벌써 반은 먹고 들어가는 기분이다. FastAPI는 Sebastián Ra">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FastAPI, WebSocket, 그리고 Docker">
+<meta property="og:url" content="https://vntgcorp.github.io/fastapi/index.html">
+<meta property="og:site_name" content="VNTG 기술블로그">
+<meta property="og:description" content="까를로스@기술지원실Intro최근(이라고 하기에는 좀 시간이 흘렀지만) python framework계에는 다양한 프레임워크들이 속속 시장 진입을 하는 것 같다. 그중에서도 가장 주목을 받는 프레임워크는 아마도 FastAPI 일 것이다. 이름부터가 빠르다 + API 이니…이름 만으로도 벌써 반은 먹고 들어가는 기분이다. FastAPI는 Sebastián Ra">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://vntgcorp.github.io/image/logo-teal.png">
+<meta property="article:published_time" content="2021-06-30T07:05:46.000Z">
+<meta property="article:modified_time" content="2021-09-07T02:22:00.667Z">
+<meta property="article:author" content="VNTG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vntgcorp.github.io/image/logo-teal.png">
+    
+
+    
+        <link rel="alternate" href="http://blog.vntgcorp.com/" title="VNTG 기술블로그" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/../image/favntg.png" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4TM9D66BJC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4TM9D66BJC');
+</script>
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle"><span style="color:black"><strong>Tech Blog</strong></span></p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/CICD/">CICD</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/ClickUp/">ClickUp</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Docker/">Docker</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/FastAPI/">FastAPI</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Static-Site-Generator/">Static Site Generator</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Static-Site-Generator/Gatsby/">Gatsby</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Static-Site-Generator/Hexo/">Hexo</a></li></ul></li></ul>
+                                
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/FastAPI/">FastAPI</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-fastapi" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        FastAPI, WebSocket, 그리고 Docker
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/fastapi/" class="article-date">
+       <time datetime="2021-06-30T07:05:46.000Z" itemprop="datePublished">2021-06-30</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/fastapi/" class="article-date">
+     <time datetime="2021-09-07T02:22:00.667Z" itemprop="dateModified">2021-09-07</time>
+  </a>
+</div>
+
+
+                
+
+                
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h6 id="까를로스-기술지원실"><a href="#까를로스-기술지원실" class="headerlink" title="까를로스@기술지원실"></a>까를로스@기술지원실</h6><h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>최근(이라고 하기에는 좀 시간이 흘렀지만) python framework계에는 다양한 프레임워크들이 속속 시장 진입을 하는 것 같다. 그중에서도 가장 주목을 받는 프레임워크는 아마도 FastAPI 일 것이다. 이름부터가 <em>빠르다 + API</em> 이니…이름 만으로도 벌써 반은 먹고 들어가는 기분이다.</p>
+<p>FastAPI는 Sebastián Ramírez라는 개발자(혹은 그의 팀?)에 의해 만들어 진 듯 하다. 솔직히 자세히 안 파봤다. 쏴리. 아래 사진은 Medium에 있는 그의 프로필 이미지.</p>
+<div align="center">
+  <p>
+    <img src="../image/fastapi1.jpeg" class="img-responsive">
+  </p>
+  <p>
+    <b><a href="https://tiangolo.medium.com/" target="_blank"><span style="color:blue">Sebastián Ramírez 프로필</span></a></b>
+   </p>   
+</div>
+
+
+<p>구글, 유튜브 등을 검색해도 꽤 많은 자료가 나오니 참조하시기 바란다.(내용도 꽤 충실하고 볼만하다)</p>
+<p>일단 특이한 수염(살바도르 달리를 닮았다)의 이 개발자가 만든 FastAPI는 다음과 같은 특징을 갖는다:</p>
+<ul>
+<li><strong>빠르다</strong>(Starlette과 Pydantic 덕분에) 사용가능한 가장 빠른 파이썬 프레임워크 중 하나라고 자신있게 기재할 정도.</li>
+<li><strong>빠른 코드 작성</strong>: 약 200~300% 개발 속도 증가라고 했는데 실제로도 꽤 적은 양의 코드로도 개발이 가능한 편.</li>
+<li><strong>적은 버그</strong>: 개발자에 의한 에러 약 40% 감소…인데 내부 개발팀의 테스트에 근거했다고 함.</li>
+<li><strong>직관적</strong>: 훌륭한 편집기 지원. 자동완성 지원. 적은 디버깅 시간. 실제로도 VSC(Visual Source Code)나 PyCharm과 함께 잘 동작한다.</li>
+<li><strong>쉬움</strong>: 문서화가 꽤 잘 되어 있다. 심지어 한글(전체는 아니지만)도 존재!(이것도 한글화 문서를 보고 정리하는 중!)</li>
+<li><strong>짦음</strong>: 코드 중복 최소화. 각 매개변수 선언의 여러 기능.</li>
+<li><strong>견고함</strong>: production-ready</li>
+<li><strong>표준 기반</strong>: 이게 가장 중요한 특징이라고 보여지는데, API 개방형 표준을 지원한다! OpenAPI(former Swagger) 및 JSON schema 지원.</li>
+</ul>
+<h3 id="FastAPI-official-Document"><a href="#FastAPI-official-Document" class="headerlink" title="FastAPI official Document"></a><a href="https://fastapi.tiangolo.com/ko/#performance" target="_blank"><span style="color:blue">FastAPI official Document</span></a></h3><p>FastAPI는 파이썬 3.6+의 API를 빌드하기 위한 modern, fast(performance), standard type hint에 기초한 웹 프레임워크이다. 파이썬 프레임워크 중 최강자라 할 수 있는 django(제발 ‘장고’라고 읽어줘. 재즈 뮤지션 이름이기도 하니깐)나 미니멀 웹 프레임워크인 flask만 알아주던 파이썬 시장에서 새로운 강자로 발돋움하는 중이기도 하다.</p>
+<p>FastAPI는 Starlette, Pydantic을 통합한 프레임워크라고 두 프레임워크의 장점을 갖고 있고, OpenAPI나 JSON을 편하게 다룰 수 있다는 점 만으로도 강점을 갖는다고 봐. 더 많은 장점은 official document를 찬찬히 살펴보면 좋을 듯. 나중에 Pydantic, Starlette, Uvicorn/Hypercorn 등도 좀 더 자세히 다뤄보고 싶은 주제이기도 하다. </p>
+<p>그래서…</p>
+<h2 id="FastAPI를-느껴-보자"><a href="#FastAPI를-느껴-보자" class="headerlink" title="FastAPI를 느껴 보자!"></a>FastAPI를 느껴 보자!</h2><p>정말 간단한 예제를 통해서 FastAPI를 알아보도록 하자.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastapi <span class="keyword">import</span> FastAPI</span><br><span class="line"></span><br><span class="line">app = FastAPI()</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(<span class="params"><span class="string">&quot;/&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">root</span>():</span></span><br><span class="line">	<span class="keyword">return</span> &#123;<span class="string">&quot;message&quot;</span>: <span class="string">&quot;Hello World&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>main.py를 만들고 위 내용을 복사한다.</p>
+<p>Virtual Environment(venv)에서 먼저</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install fastapi</span><br><span class="line">pip install uvicorn (<span class="keyword">or</span> hypercorn)</span><br></pre></td></tr></table></figure>
+
+<p>으로 설치를 해두고 라이브 서버를 실행한다.</p>
+<p>(uvicorn 말고 hypercorn을 써도 되는데, 둘다 ASGi를 지원하는 좋은 서버들이다. 차이가 있다면 hypercorn은  HTTP/1, HTTP2, WebSocket over H/1 and H/2, ASGI/2, ASGI/3를 모두 지원해서 개인적으로 좀 더 선호하고 있다)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uvicorn main:app --reload</span><br></pre></td></tr></table></figure>
+
+<p>실행하면 터미널에 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INFO:  Uvicorn running on http://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8000</span> (Press CTRL+C to quit)</span><br></pre></td></tr></table></figure>
+
+<p>이런 메시지가 보이는데 이 라인은 로컬에서 앱이 서비스되는 URL을 보여준다. 이 URL을 마우스로 클릭하거나 브라우저로 복사해서 오픈하면 아래와 같은 JSON 응답을 확인할 수 있다:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;message&quot;</span>: <span class="string">&quot;Hello World&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>여기까지만 보면 뭐가 크게 다른지 안 보인다. 그래서 준비했다!</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8000</span>/docs</span><br></pre></td></tr></table></figure>
+
+<center><img src="../image/fastapi2.png" width=500px></center>
+그리고 또
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8000</span>/redoc</span><br></pre></td></tr></table></figure>
+
+<center><img src="../image/fastapi3.png" width=500px></center>
+
+<p>크으..그렇다. 이 두가지 API  UI 때문에라도 이걸 써봐야 한다.</p>
+<p>그렇지만 이걸로만 끝내면 아까 FastAPI의 장점에서 이야기한 OpenAPI가 슬퍼한다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8000</span>/openapi.json</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">	<span class="attr">&quot;openapi&quot;</span>: <span class="string">&quot;3.0.2&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;info&quot;</span>: &#123;</span><br><span class="line">		<span class="attr">&quot;title&quot;</span>: <span class="string">&quot;FastAPI&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;version&quot;</span>: <span class="string">&quot;0.1.0&quot;</span></span><br><span class="line"></span><br><span class="line">	&#125;,</span><br><span class="line"></span><br><span class="line">	<span class="attr">&quot;paths&quot;</span>: &#123;</span><br><span class="line">		<span class="attr">&quot;/items/&quot;</span>: &#123;</span><br><span class="line">			<span class="attr">&quot;get&quot;</span>: &#123;</span><br><span class="line">				<span class="attr">&quot;responses&quot;</span>: &#123;</span><br><span class="line">					<span class="attr">&quot;200&quot;</span>: &#123;</span><br><span class="line">						<span class="attr">&quot;description&quot;</span>: <span class="string">&quot;Successful Response&quot;</span>,</span><br><span class="line">						<span class="attr">&quot;content&quot;</span>: &#123;</span><br><span class="line">								<span class="attr">&quot;application/json&quot;</span>: &#123;</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>여기까지와 실제 API간의 인터랙션을 위한 기본 학습 내용은 아래 URL을 참조하길 바란다. 문서가 매우 잘 되어 있어서 자습하기에도 좋다. 음 설마 API를 하려고 하니 GET, PUT, DELETE, UPDATE는 … 당연히 알거라 생각해서 패스한다. </p>
+<center><img src="../image/fastapi4.jpeg" class="img-responsive"></center>
+
+<h3 id="첫걸음-FastAPI"><a href="#첫걸음-FastAPI" class="headerlink" title="첫걸음 - FastAPI"></a><a href="https://fastapi.tiangolo.com/ko/tutorial/first-steps/" target="_blank"><span style="color:blue">첫걸음 - FastAPI</span></a></h3><p>실제 제목이었던 내용인 FastAPI, WebSocket, 그리고 Docker에 대한 내용을 이제 알아보….도록 합니다.</p>
+<h2 id="다시-FastAPI-WebSocket-Docker"><a href="#다시-FastAPI-WebSocket-Docker" class="headerlink" title="다시 FastAPI, WebSocket, Docker"></a><strong>다시 FastAPI, WebSocket, Docker</strong></h2><p>순서를 정해서 차례대로 달려 보자. 여기에 있는 예제는 솔직하게, FastAPI Official Document만 잘 찾아봐도 다 할 수 있는 내용이다:</p>
+<ol>
+<li>FastAPI에 WebSocket Client를 추가해 보자.</li>
+<li>Dockerize를 해보면 끝.</li>
+</ol>
+<p>사실 FastAPI, Docker, WebSocket 각각만 해도 엄청난 양의 블로그, 문서를 만들 수 있을 만큼의 내용이지만 날림의 대가로서 일단 이것만 하고 여유가 되면(=누군가 조공을 바치면?) 각각에 대해서도 썰을 풀어볼까 한다.</p>
+<h3 id="1-FastAPI에-WebSocket-Client를-추가해-보자"><a href="#1-FastAPI에-WebSocket-Client를-추가해-보자" class="headerlink" title="1. FastAPI에 WebSocket Client를 추가해 보자."></a>1. FastAPI에 WebSocket Client를 추가해 보자.</h3><p>애용하는 IDE에서 project/folder를 만들고 venv를 구성하고, 위에 설명이 있는 것처럼 fastapi, uvicorn을 설치한다. 그리고 보편적으로 사용할 main.py를 만든다. (개인적으로 Golang 은  VSC에서, Python은 PyCharm, 그리고 linux/Mac OS 터미널에서는 nano 에디터를 쓴다. 개인취향이다 ㅠㅠ)</p>
+<center><img src="../image/fastapi5.png" width=700px></center>
+
+<p>이 main.py를 채우기 위해서 우선 공식문서에서 websocket을 찾아보자.</p>
+<center><img src="../image/fastapi6.png" width=700px></center>
+
+<p>주욱 읽어가다 보면 WebSocket client에 대한 내용을 볼 수 있다. <a target="_blank" rel="noopener" href="https://fastapi.tiangolo.com/ko/advanced/websockets/?h=websoc">WebSockets - FastAPI</a></p>
+<p>Await for messages and send messages 에 있는 샘플 소스코드를 복사한 후, 에디터의 main.py에 붙여넣기한다. <a target="_blank" rel="noopener" href="https://fastapi.tiangolo.com/ko/advanced/websockets/?h=websoc#await-for-messages-and-send-messages">WebSockets - FastAPI</a></p>
+<center><img src="../image/fastapi7.png" width=700px></center>
+
+<p>그럼 자신있게 라이브 서버를 실행시켜 보자.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unicorn main:app --reload</span><br></pre></td></tr></table></figure>
+
+<p>그리고 브라우저를 열고 <a target="_blank" rel="noopener" href="http://127.0.0.1:8000/">http://127.0.0.1:8000</a> 을 보면 아래와 같은 페이지를 보게 될 것이다:</p>
+<center><img src="../image/fastapi8.png" width=700px></center>
+
+<p>오, 됐어! 이렇게 쉬울 수가! 하면서 텍스트 입력 창에 여러가지 써보고 Send를 눌러보면….</p>
+<p>음…아무런 동작을 하지 않는다..</p>
+<center><img src="../image/fastapi9.jpeg" class="img-responsive"></center>
+
+<p>에디터 터미널 등을 살펴보면 다음과 같은 에러 메시지를 찾아볼 수 있을 것이다:</p>
+<center><img src="../image/fastapi10.png" class="img-responsive"></center>
+
+<p>메시지를 보면,</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">WARNING:  Unsupported upgrade request.</span><br><span class="line">WARNING:  No supported WebSocket library detected. Please use <span class="string">&#x27;pip install uvicorn[standard]&#x27;</span>, or install <span class="string">&#x27;websockets&#x27;</span> or <span class="string">&#x27;wsproto&#x27;</span> manually.</span><br></pre></td></tr></table></figure>
+
+<p>아하! WebSocket 라이브러리가 설치 안되었구나. 바로 ‘pip install websockets’로 설치해 주시고 나서 라이브서버 재실행, 그리고 나서 브라우저를 리로드해주고, 텍스트 입력창에 글을 쓰고 send를 누르면,</p>
+<center><img src="../image/fastapi11.png" width=700px></center>
+
+<center><img src="../image/fastapi12.png" width=700px></center>
+
+<p>WebSocket이 이렇게 쉬운건가 하는 가벼운 착각(?)을 하면서 아래 내용을 좀 더 읽어 보시길 권함. </p>
+<p>사실 async/await 등 개념부터 제대로 이해하는 것이 맞지만 우선 되는 걸 확인하면서 하나씩 짚어 보는 방법도 나쁘지 않다고 보기에, 예제를 열심히 따라하거나 내용을 상세히 읽어 보시길 권합니다~</p>
+<h3 id="2-Dockerize를-해보면-끝"><a href="#2-Dockerize를-해보면-끝" class="headerlink" title="2. Dockerize를 해보면 끝!"></a>2. Dockerize를 해보면 끝!</h3><p>일단 Docker, Container 라고 이야기하면 경기를 일으키는 분들도 꽤 있다(정말이다. 내 주변에도 꽤 있다.) 개인적인 경험으로는 Docker나 container, Kubernetes(k8s) 등과 VM, instance 등이 다양한 개념이 클라우드와 함께 일반인들에게 혼란을 주기도 하는 것 같다. 그런데, 결국 내 밥벌이용이 아니면 같은 철자로 된 단어를 들어도 뜻을 모르는게 당연한거 아닌가 싶다. CD가 누구에게는 Continuous Delivery지만, 누구에게는 Compact Disc, 혹은 Certificate of Deposit 혹은 ….알쥬? 그런 셈이다. </p>
+<p>각설하고, 일단 에디터로 돌아가서 Dockerfile을 작성해 보자. 아, 그전에 양해를 구할 것이 있다. </p>
+<p>실제 워킹 폴더 명이 회사에서 진행 예정인 중요 프로젝트 명으로 되어 있어서 실제 이름을 적다가 식껍해서 우선 상황으로 설명하는 것으로 변경하였다. 즉, 실제 워킹하지 않는 폴더 명을 Dockerfile, Docker-compose.yml 등에 적었다는 의미이다. 사실 참조의 의미로만 보시는 편이 좋을 듯 하다.</p>
+<p>총 3개의 파일이 추가된다: </p>
+<ul>
+<li><strong><span style="color:red">dockerfile</span></strong></li>
+</ul>
+<center><img src="../image/fastapi13.png" width=700px></center>
+
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span>    python:<span class="number">3.7</span>-rc-alpine </span><br><span class="line"></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /usr/<span class="built_in">local</span>/blahblah/</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> requirements.txt</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> pip install --trusted-hosts pypi.python.org -r requirements.txt</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">&quot;uvicorn&quot;</span>, <span class="string">&quot;main:app&quot;</span>, <span class="string">&quot;--reload&quot;</span>, <span class="string">&quot;--host&quot;</span>, <span class="string">&quot;0.0.0.0&quot;</span>, <span class="string">&quot;--port&quot;</span>, <span class="string">&quot;8000&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<p>FROM은 python 3.7-rc-alpine 버전부터 사용할 수 있다는 것인데, FastAPI는 3.6+ 지원한다. 참고하셈.</p>
+<p>WORKDIR은 위에 설명해 놨듯, 임의의 폴더를 그냥 쓴거다. 다음에 또 블로그 예제 올리게 되면 그땐 아예 환경 분리해서 따로 만들어서 드리리다 ㅠㅠ 죄송함돠!!!</p>
+<p>ADD에는 requirements.txt를 로드해서 필요한 라이브러리 등을 적어 놓는다.</p>
+<ul>
+<li><strong><span style="color:red">requirements.txt</span></strong></li>
+</ul>
+<center><img src="../image/fastapi14.png" width=700px></center>
+
+ 
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fastapi</span><br><span class="line">uvicorn</span><br><span class="line">websockets</span><br></pre></td></tr></table></figure>
+
+<p>처음 빌드할때 websockets을 깜빡해서 왜 에러가 뜨지 왜 안되지 하면서 고민을 잠깐 했었다. 이래서 머리가 나쁘면 손발이 고생한다는 것 같다. </p>
+<ul>
+<li><strong><span style="color:red">docker-compose.yml</span></strong></li>
+</ul>
+<center><img src="../image/fastapi15.png" width=700px></center>
+
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;3.7&quot;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">api:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">&quot;docker-fastapi-websocket&quot;</span></span><br><span class="line">    <span class="attr">build:</span> <span class="string">.</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">8080</span><span class="string">:8000</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">./app:/usr/local.////////</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="급결론"><a href="#급결론" class="headerlink" title="급결론"></a>급결론</h2><p>(너무 자세한 설명을 생략했지만서도) 공부하시면 쉽게 접근할 수 있는 내용이라고 믿으면서, docker-compose를 실행하기로 한다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up --build</span><br></pre></td></tr></table></figure>
+
+<p>실행하고 나면 다음과 같이 브라우저에서 동작하는 것을 볼 수 있을 것이다:</p>
+<center><img src="../image/fastapi16.png" width=500px></center>
+
+<p>스타트업이나 새로운 프러덕트, 서비스를 개발하고자 하는 곳에서는 파이썬을 많이 사용하고 있다. 실제로도 Machine Learning(ML) 프로젝트나 개발을 하는 곳에서는 자바, C# 등 보다는 파이썬과 관련된 다양한 라이브러리(개인적으로는 PyTorch + PyDantic을 공부 중이다), 프레임워크를 적용하는 경우가 많이 늘은 것 같다. </p>
+<p>파이썬의 장점은 쉬운 것이고 단점은 어렵다는 것이다. 파이썬은 루틴, 객체지향, 함수형 언어의 특징이 골고루 들어 있고 다양한 프레임워크와 라이브러리가 산재한다는 것 때문에 쉽게 시작하지만 점점 어려워지는 언어인 것 같다. </p>
+<p>파이썬을 사용하면 가장 많이 만나게 되는 프레임워크는 django, flask가 있고 전직장 등에서 django의 장단점을 많이 경험해 보았기에 FastAPI라는 프레임워크가 주는 기대감이 매우 크다. 일단 빠르고, API 기반이란 점이 아주 마음에 든다. 특히 향후 전사 시스템 아키텍쳐를 API, GraphQL, WebSocket or gRPC 등으로 범벅하려는 사악한 계획을 세우고 있기 때문에 더더욱 그렇다.</p>
+<p>다음에 기회가 되면 golang으로 테스트하는 내용에 대해서도 정리해 보고 싶기도 하고 FastAPI의 기반이 된 Starlette, Pydantic, 혹은 ASGi에 대한 것도 정리해 보고 싶지만…원체 게을러서 언제 할지는 모르겠다. </p>
+<p>일단 줄입니다~ 끄읕!</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://vntgcorp.github.io/fastapi/" data-id="ckt9kq38i00054ouw6id10aed" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "VNTG"
+        },
+        "headline": "FastAPI, WebSocket, 그리고 Docker",
+        "image": "https://VntgCorp.github.io../../image/logo-teal.png",
+        "keywords": "",
+        "genre": "FastAPI",
+        "datePublished": "2021-06-30",
+        "dateCreated": "2021-06-30",
+        "dateModified": "2021-09-07",
+        "url": "https://VntgCorp.github.io/fastapi/",
+        "description": "까를로스@기술지원실Intro최근(이라고 하기에는 좀 시간이 흘렀지만) python framework계에는 다양한 프레임워크들이 속속 시장 진입을 하는 것 같다. 그중에서도 가장 주목을 받는 프레임워크는 아마도 FastAPI 일 것이다. 이름부터가 빠르다 + API 이니…이름 만으로도 벌써 반은 먹고 들어가는 기분이다.
+FastAPI는 Sebastián Ra",
+        "wordCount": 1492
+    }
+</script>
+
+</article>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>Contact:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="envelope" href="mailto:techblog@vntgcorp.com" target="_blank" rel="noopener">
+                        <i class="icon fa fa-envelope"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/VntgCorp" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="home" href="https://www.vntgcorp.com/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-home"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="http://blog.vntgcorp.com/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/DockerWithoutDesktop/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            Docker Desktop 없이 Windows에서 Docker 사용하기
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/clickup/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">ClickUp 유저 매뉴얼</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/DockerWithoutDesktop/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/dockermoney.png)" alt="Docker Desktop 없이 Windows에서 Docker 사용하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Docker/">Docker</a></p>
+                            <p class="item-title"><a href="/DockerWithoutDesktop/" class="title">Docker Desktop 없이 Windows에서 Docker 사용하기</a></p>
+                            <p class="item-date"><time datetime="2021-09-07T07:00:00.000Z" itemprop="datePublished">2021-09-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/fastapi/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/logo-teal.png)" alt="FastAPI, WebSocket, 그리고 Docker" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/FastAPI/">FastAPI</a></p>
+                            <p class="item-title"><a href="/fastapi/" class="title">FastAPI, WebSocket, 그리고 Docker</a></p>
+                            <p class="item-date"><time datetime="2021-06-30T07:05:46.000Z" itemprop="datePublished">2021-06-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/clickup/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/clickupthumb.png)" alt="ClickUp 유저 매뉴얼" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ClickUp/">ClickUp</a></p>
+                            <p class="item-title"><a href="/clickup/" class="title">ClickUp 유저 매뉴얼</a></p>
+                            <p class="item-date"><time datetime="2021-06-15T07:05:46.000Z" itemprop="datePublished">2021-06-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/newpostmanual/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/manualthumb.jpg)" alt="포스트 추가 방법" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Static-Site-Generator/">Static Site Generator</a></p>
+                            <p class="item-title"><a href="/newpostmanual/" class="title">포스트 추가 방법</a></p>
+                            <p class="item-date"><time datetime="2021-06-09T01:05:46.000Z" itemprop="datePublished">2021-06-09</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/hexoVSgatsby/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/hexogatsby.png)" alt="Hexo &amp; Gatsby 차이점(주관적)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Static-Site-Generator/">Static Site Generator</a></p>
+                            <p class="item-title"><a href="/hexoVSgatsby/" class="title">Hexo &amp; Gatsby 차이점(주관적)</a></p>
+                            <p class="item-date"><time datetime="2021-06-03T04:05:46.000Z" itemprop="datePublished">2021-06-03</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CICD/">CICD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ClickUp/">ClickUp</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/FastAPI/">FastAPI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Static-Site-Generator/">Static Site Generator</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Static-Site-Generator/Gatsby/">Gatsby</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Static-Site-Generator/Hexo/">Hexo</a><span class="category-list-count">1</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class=""></a>
+                </h1>
+                <p>&copy; VNTG. All rights reserved. Powered by GitHub Pages.</p>
+                
+                <p> Created by <a href="https://github.com/jonggang08/VntgTechBlog" target="_blank">배종강 (Bae Jong-Gang)</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://vntgcorp.github.io/fastapi/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

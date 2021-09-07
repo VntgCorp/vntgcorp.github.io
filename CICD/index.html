@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    
+
+    
+    <title>기존 버전관리 및 CICD 현황 | VNTG 기술블로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="" />
+    
+    <meta name="description" content="TJ@기술지원실소개: 이 문서는 github, gitlab의 CICD 기능을 테스팅하고 검토하면서 정리한 자료입니다.  &amp;nbsp;  선택 : 설치형 vs SaaS (Software as a Service)  Gitlab은 모든 타입에서 설치형 지원 Github는 Enterprise 에서만 설치형 지원  IDC나 사내에서 CICD 를 쓸 일이 있으면 필요한">
+<meta property="og:type" content="article">
+<meta property="og:title" content="기존 버전관리 및 CICD 현황">
+<meta property="og:url" content="https://vntgcorp.github.io/CICD/index.html">
+<meta property="og:site_name" content="VNTG 기술블로그">
+<meta property="og:description" content="TJ@기술지원실소개: 이 문서는 github, gitlab의 CICD 기능을 테스팅하고 검토하면서 정리한 자료입니다.  &amp;nbsp;  선택 : 설치형 vs SaaS (Software as a Service)  Gitlab은 모든 타입에서 설치형 지원 Github는 Enterprise 에서만 설치형 지원  IDC나 사내에서 CICD 를 쓸 일이 있으면 필요한">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://vntgcorp.github.io/image/cicd_title.png">
+<meta property="article:published_time" content="2021-05-31T07:05:46.000Z">
+<meta property="article:modified_time" content="2021-09-07T02:22:00.666Z">
+<meta property="article:author" content="VNTG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vntgcorp.github.io/image/cicd_title.png">
+    
+
+    
+        <link rel="alternate" href="http://blog.vntgcorp.com/" title="VNTG 기술블로그" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/../image/favntg.png" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/titillium-web/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+<script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4TM9D66BJC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4TM9D66BJC');
+</script>
+    
+    
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle"><span style="color:black"><strong>Tech Blog</strong></span></p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/CICD/">CICD</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/ClickUp/">ClickUp</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Docker/">Docker</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/FastAPI/">FastAPI</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Static-Site-Generator/">Static Site Generator</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Static-Site-Generator/Gatsby/">Gatsby</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Static-Site-Generator/Hexo/">Hexo</a></li></ul></li></ul>
+                                
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/CICD/">CICD</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-CICD" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        기존 버전관리 및 CICD 현황
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/CICD/" class="article-date">
+       <time datetime="2021-05-31T07:05:46.000Z" itemprop="datePublished">2021-05-31</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/CICD/" class="article-date">
+     <time datetime="2021-09-07T02:22:00.666Z" itemprop="dateModified">2021-09-07</time>
+  </a>
+</div>
+
+
+                
+
+                
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h6 id="TJ-기술지원실"><a href="#TJ-기술지원실" class="headerlink" title="TJ@기술지원실"></a>TJ@기술지원실</h6><p><strong><font size="6">소개:</font></strong></p>
+<p>이 문서는 github, gitlab의 CICD 기능을 테스팅하고 검토하면서 정리한 자료입니다.</p>
+<hr>
+<p>&nbsp;</p>
+
+<p><strong><font size="6">선택 : 설치형 vs SaaS (Software as a Service)</font></strong></p>
+<ul>
+<li>Gitlab은 모든 타입에서 설치형 지원</li>
+<li>Github는 Enterprise 에서만 설치형 지원</li>
+</ul>
+<p>IDC나 사내에서 CICD 를 쓸 일이 있으면 필요한 곳에 runner 를 설치하면 가능</p>
+<hr>
+<p>&nbsp;</p>
+
+<p><strong><font size="6">Gitlab vs Github 가격비교</font></strong></p>
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+td, th {
+  border: 2px solid #000000;
+  
+<p>  text-align: left;<br>  padding: 8px;<br>}</p>
+<p></style></p>
+</head>
+<body>
+<table>
+  <tr>
+    <th>Gitlab</th>
+    <th>Github</th>
+  </tr>
+  <tr>
+    <td>https://about.gitlab.com/pricing/</td>
+    <td>https://github.com/pricing</td>
+  </tr>
+  <tr>
+    <td>Free</td>
+    <td>Free</td>
+  </tr>
+  <tr>
+    <td>Premium : 1인당 월$19*12= 년 $228</td>
+    <td>Team : 1인당 월 $4*12 = 년 $48</td>
+  </tr>
+  <tr>
+    <td>Ultimate : 1인당 월$99*12=년 $1188</td>
+    <td>Enterprise : 1인당 월 $21*12 = 년 $252</td>
+  </tr>    
+</table>
+
+</body>
+</html>
+
+<hr>
+<p>&nbsp;</p>
+
+<h2 id="Gitlab-vs-Github-기능-비교"><a href="#Gitlab-vs-Github-기능-비교" class="headerlink" title="Gitlab vs Github 기능 비교"></a>Gitlab vs Github 기능 비교</h2><h4 id="타입별-기능-비교"><a href="#타입별-기능-비교" class="headerlink" title="타입별 기능 비교:"></a>타입별 기능 비교:</h4><p>Free 버전에서는 git 사용을 위한 기본적인 기능만 지원을 하며 기술지원 없음<br>PR(MR) 요청을 했을 때 리뷰어를 두고 승인하는 기능은 Free 버전에는 없으며 Gitlab Premium이나 Github Team을 써야 함<br>Gitlab Ultimate, Github Enterprise 는 주로 보안과 관련한 기능 추가</p>
+<p><strong>일반적인 기능은 비슷하게 지원이 됨</strong></p>
+<ul>
+<li>버전관리</li>
+<li>프로젝트관리(wiki, issues)</li>
+<li>패키지기능(npm, RubyGems, Apache Maven, Gradle, Docker, and NuGet, docker)</li>
+<li>CICD</li>
+<li>API 연동</li>
+</ul>
+<p><strong>Gitlab은 CICD 기능 외에 다양한 부가 기능을 지원</strong></p>
+<ul>
+<li><a href="https://docs.gitlab.com/ee/operations/" target="_top"><span style="color:blue">Monitor application 퍼포먼스 </span></a></li>
+<li>메트릭으로 신뢰성 및 안정성 측정</li>
+<li>경고 및 사고 관리</li>
+<li>애플리케이션의 오류 추적</li>
+<li>애플리케이션 상태 및 성능 추적</li>
+<li>로그 집계 및 저장</li>
+<li>코드로 인프라 관리 (terraform remote backend)</li>
+<li><a href="https://docs.gitlab.com/ee/user/project/clusters/" target="_top"><span style="color:blue">k8s 통합기능 </span></a> </li>
+<li>테스팅과 관련한 각종 툴이 통합 :  단위테스트 보고서, 접근성 테스트, 브라우저 성능 테스트, 코드 품질, 부하 성능 테스트, 메트릭 레포트 <a href="https://docs.gitlab.com/ee/ci/unit_test_reports.html" target="_top"><span style="color:blue">Unit 테스트 리포트 </span></a> </li>
+</ul>
+<p><strong>Gitlab에서는 여러 가지 부가기능을 많이 지원하지만 Github 에서는 다른 대체수단을 이용하여 처리할 수 있을 것으로 생각됨</strong></p>
+<ul>
+<li>terraform remote backend 는 AWS 에서 S3+dynamoDB 와 연동하여 처리 가능</li>
+<li><a href="https://fluxcd.io/" target="_top"><span style="color:blue">k8s는 Flux </span></a> 나 <a href="https://argoproj.github.io/argo-cd/" target="_top"><span style="color:blue">Argo CD </span></a> 등을 이용</li>
+<li>CICD는 Github 에서 Github actions 를 지원하면서 큰 차이가 없음  </li>
+<li>Github marketplace 에서 필요한 것을 찾거나 직접 만들어서 사용 하면 됨</li>
+</ul>
+<p><strong>Gitlab, Github CICD 예제</strong></p>
+<ul>
+<li><a href="https://docs.gitlab.com/ee/ci/examples/README.html" target="_top"><span style="color:blue">Gitlab CI/CD 예제 </span></a></li>
+<li><a href="https://docs.github.com/en/actions/guides" target="_top"><span style="color:blue">Github 액션 가이드 </span></a></li>
+</ul>
+<p><strong>Gitlab CICD의 장점은 environments 를 이용하여 각 환경(staging, prod)에 대한 배포를 손쉽게 하고 기록을 확인가능한 점</strong>  </p>
+<ul>
+<li>Github 은 <a href="https://docs.github.com/en/actions/reference/environments" target="_blank"><span style="color:blue">environments </span></a> 기능을 public repo나 enterprise plan 일 경우에만 지원하고 github team 의 private repo에는 지원 안함  </li>
+<li>Github 에서 environments 기능은 리뷰어의 <a href="https://github.blog/changelog/2020-12-15-github-actions-environments-environment-protection-rules-and-environment-secrets-beta/" target="_blank"><span style="color:blue">승인 </span></a>이 있어야 배포 가능/트리거 발생후 일정 시간이 지나야 배포 가능/특정 브랜치만 배포 가능  </li>
+</ul>
+<hr>
+<p>&nbsp;</p>
+
+<p><strong><font size="8">Github 구성</font></strong></p>
+<ul>
+<li>IDC에서 CICD를 하는 경우에는 IDC에 윈도우용 runner, LInux runner 구성  </li>
+<li>AWS 를 이용하는 경우에는 소스코드 관리는 Github로 하되 AWS CodePipeline 를 이용할 수도 있음. <a href="https://aws.amazon.com/ko/codepipeline/" target="_top"><span style="color:blue">소스코드링크</span></a></li>
+</ul>
+<p><strong><font size="6">Github Actions</font></strong></p>
+<ul>
+<li>Quickstart 에서 간단한 github actions  직접 만들어서 해봄. <a href="
+https://docs.github.com/en/actions/quickstart" target="_top"><span style="color:blue">액션링크</span></a></li>
+<li>Guides 에서 주로 사용하는 언어를 골라서 build, test, deploy 하는 예제를 살펴본다. <a href="https://docs.github.com/en/actions/guides" target="_top"><span style="color:blue">액션가이드</span></a></li>
+</ul>
+<p><strong><font size="6">Github Actions 배우기</font></strong></p>
+<ul>
+<li>Learn GitHub Actions : github actions 를 이용하여 workflow 를 만드는 방법을 상세히 설명.  <a href="https://docs.github.com/en/actions/learn-github-actions" target="_top"><span style="color:blue">액션배우기</span></a></li>
+</ul>
+<ul>
+<li>Github actions 과정에 대한 설명, actions 찾기, 조직과 워크플로우 공유하기, 보안 등을 다루고 있음. </li>
+</ul>
+<p><strong><font size="6">Github Actions 만들기</font></strong></p>
+<p>Actions는 jobs을 만들고  workflow를 구성하는 개별 작업으로 자신이 직접 만들거나 github 커뮤니티에서 다른 사람들이 만든 것을 이용할 수 있다. <a href="https://docs.github.com/en/actions/creating-actions" target="_top"><span style="color:blue">자세히</span></a></p>
+<p>Actions는 3가지 타입으로 만들 수 있으며 Docker container, JavaScript, Composite run steps 가 있다.  <a href="https://docs.github.com/en/actions/creating-actions/about-actions" target="_top"><span style="color:blue">자세히</span></a></p>
+<p>Docker container 는 리눅스만 지원한다. JavaScript는 runner 에서 실행이 되며 “JavaScript 작업을 사용하면 작업 코드가 단순화되고 Docker 컨테이너 작업보다 빠르게 실행됩니다.” 라고 문서에 나와있다. Composite run steps 는 쉘스크립트를 이용하여 처리하는 경우로 Docker container, JavaScript  보다는 뒤에 기능이 추가가 되었다.</p>
+<p><strong><font size="6">Reference</font></strong></p>
+<p>Encrypted secrets : 암호화된 비밀정보.  workflow 파일에서  input 이나 environment 변수로 받아서 사용할 수 있음.<a href="https://docs.github.com/en/actions/reference/encrypted-secrets" target="_top"><span style="color:blue">자세히</span></a></p>
+<p>Environments 를 이용하면 배포시 몇가지 제한을 걸 수 있다. 리뷰어의 승인이 있어야 배포 가능, 트리거 발생후 일정 시간이 지나야 배포 가능, 특정 브랜치만 배포 가능. 그런데 이 기능은 공개 repo이거나 enterprise plan 일 경우에만 지원을 하고 github team 의 private repo에는 아직 지원 안함. <a href="https://docs.github.com/en/actions/reference/environments" target="_top"><span style="color:blue">자세히</span></a></p>
+<p><a href="https://dev.to/n3wt0n/everything-you-need-to-know-about-github-actions-environments-9p7" target="_top"><span style="color:blue">Environments 를 이용한 예제</span></a> </p>
+<ol>
+<li>Pull Request 상태 일 때만 Dev에 배포</li>
+<li>메인에 커밋하거나 병합 할 때만 스테이징에 배포</li>
+<li>스테이징 후 승인을 받아 프로덕션에 배포</li>
+</ol>
+<p><strong><font size="6">Github Actions 제한</font></strong><br><a href="https://docs.github.com/en/actions/reference/usage-limits-billing-and-administration" target="_top"><span style="color:blue">자세히</span></a> </p>
+<p>Job execution time : 6시간<br>Workflow run time : 72 hours</p>
+<h4 id="Github-self-hosted-runners"><a href="#Github-self-hosted-runners" class="headerlink" title="Github self-hosted runners"></a>Github self-hosted runners</h4><h5 id="Github-runner-설치-및-등록"><a href="#Github-runner-설치-및-등록" class="headerlink" title="Github runner 설치 및 등록"></a>Github runner 설치 및 등록</h5><p>Repository 또는 organization 차원에서 runner 를 등록할 수 있음. <a href="https://docs.github.com/en/actions/hosting-your-own-runners/adding-self-hosted-runners" target="_top"><span style="color:blue">자세히</span></a></p>
+<ul>
+<li>runner 를 추가하는 화면에서 runner를 설치하고 설정하는 부분에 대한 설명이 나옴. </li>
+<li>설치시 root로 진행을 하면 sudo 관련한 에러가 나옴. </li>
+<li>보안을 위해서 별도 user를 만들어서 runner를 실행함. runner 를 실행할 user를 만들고 docker 를 사용하기 위해서 docker group에 추가를 해준다. </li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">useradd -m  -s /bin/bash --comment &#x27;github runner&#x27;  github-runner</span><br><span class="line">usermod -aG docker github-runner</span><br><span class="line">sudo su - github-runner</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https://github.com/VntgCorp/VntgCorp.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+
+<h5 id="Github-runner-user로-runner-설치-설정을-할-때-나오는-url과-token-정보를-이용"><a href="#Github-runner-user로-runner-설치-설정을-할-때-나오는-url과-token-정보를-이용" class="headerlink" title="Github-runner user로 runner 설치. 설정을 할 때  나오는 url과 token 정보를 이용:"></a>Github-runner user로 runner 설치. 설정을 할 때  나오는 url과 token 정보를 이용:</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir actions-runner &amp;&amp; cd actions-runner</span><br><span class="line">$ curl -o actions-runner-linux-x64-2.278.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.278.0/actions-runner-linux-x64-2.278.0.tar.gz</span><br><span class="line">$ tar xzf ./actions-runner-linux-x64-2.278.0.tar.gz</span><br><span class="line">.$ /config.sh --url https://github.com/VntgCorp --token ATZHRXXXXXXXX</span><br></pre></td></tr></table></figure>
+
+<h5 id="아래는-root-권한으로-실행을-해야-함-systemd-설정을-하며-실행하는-사용자를-지정하는-것임"><a href="#아래는-root-권한으로-실행을-해야-함-systemd-설정을-하며-실행하는-사용자를-지정하는-것임" class="headerlink" title="아래는 root 권한으로 실행을 해야 함. systemd 설정을 하며 실행하는 사용자를 지정하는 것임:"></a>아래는 root 권한으로 실행을 해야 함. systemd 설정을 하며 실행하는 사용자를 지정하는 것임:</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># ./svc.sh install github-runner</span><br><span class="line"># ./svc.sh start</span><br><span class="line"># ./svc.sh status</span><br></pre></td></tr></table></figure>
+
+<p>Self-hosted runners 를 github actions에 추가할 때 자동으로 self-hosted, 운영 체제 및 하드웨어 플랫폼 레이블이 설정 된다. 필요하면 추가 레이블을 설정할 수 있다. 예를 들어 x86_64 ubuntu 20.04 의 경우 self-hosted, linux, X64 로 나온다.</p>
+<p>보안 문제로 public repo의 경우에는 기본적으로 organization에 있는 runner group 을 사용할 수 없다.<a href="https://docs.github.com/en/actions/hosting-your-own-runners/about-self-hosted-runners#self-hosted-runner-security-with-public-repositories" target="_top"><span style="color:blue">자세히</span></a></p>
+<p>workflow 에서 runner 사용: <a href="https://docs.github.com/en/actions/hosting-your-own-runners/using-self-hosted-runners-in-a-workflow" target="_top"><span style="color:blue">자세히</span></a></p>
+<p>runs-on: [self-hosted, linux, X64]. workflow에서 runner에 할당한 레이블을 넣으면 됨. (and 조건임)</p>
+<p> <a href="https://docs.microsoft.com/ko-kr/learn/paths/automate-workflow-github-actions/" target="_top"><span style="color:blue">Github actions 기타 참고자료</span></a></p>
+<h4 id="Docker-registry-container-registry"><a href="#Docker-registry-container-registry" class="headerlink" title="Docker registry, container registry"></a>Docker registry, container registry</h4><p><a href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-docker-registry" target="_top"><span style="color:blue">자세히</span></a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker login https://docker.pkg.github.com -u tjmoon-vntg</span><br><span class="line">$ docker build -t docker.pkg.github.com/tjmoon-vntg/action_test/docker_test:1.0 .</span><br><span class="line">$ docker push docker.pkg.github.com/tjmoon-vntg/action_test/docker_test:1.0</span><br></pre></td></tr></table></figure>
+<p>현재는 package namespace 를 사용하는 Docker registry 를 지원하고 있는데 향후에는 Container Registry 로 대체를 할 것이라고 함. Container Registry 는 사용자 또는 조직에 대해서 설정을 하며 아직은 베타버전임. <a href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/enabling-improved-container-support-with-the-container-registry" target="_top"><span style="color:blue">자세히</span></a></p>
+<hr>
+<p>&nbsp;</p>
+
+<p><strong><font size="8">Gitlab 구성</font></strong></p>
+<h3 id="Gitlab-runner-설치-및-등록"><a href="#Gitlab-runner-설치-및-등록" class="headerlink" title="Gitlab runner 설치 및 등록"></a>Gitlab runner 설치 및 등록</h3><p>Runner type : shared runners, group runners, specific runners</p>
+<p>OS에 gitlab-runner 설치.<br>executor 가 여러 가지 있는데 docker 를 추천하고 있음. OS에 docker 설치.<br>gitlab-runner 설치 후 runner 를 등록함. </p>
+<p><a href="https://docs.gitlab.com/runner/register/index.html#docker" target="_top"><span style="color:blue">executor docker</span></a>로 실행시 gitlab.example.com 을 찾지 못함. </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">REGISTRATION_TOKEN=gCGg8tkK51TATVpjsBHz</span><br><span class="line">sudo gitlab-runner register \</span><br><span class="line">  --non-interactive \</span><br><span class="line">  --url http://gitlab.example.com/ \</span><br><span class="line">  --registration-token $REGISTRATION_TOKEN \</span><br><span class="line">  --executor &quot;docker&quot; \</span><br><span class="line">  --docker-image alpine:latest \</span><br><span class="line">  --description &quot;docker-runner&quot; \</span><br><span class="line">  --tag-list &quot;docker,aws&quot; \</span><br><span class="line">  --run-untagged=&quot;true&quot; \</span><br><span class="line">  --locked=&quot;false&quot; \</span><br><span class="line">  --access-level=&quot;not_protected&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>extra_hosts 옵션을 추가해서 docker 에서 /etc/hosts를 업데이트할 수 있음.<br>extra_hosts = [“other-host:127.0.0.1”] <a href="https://docs.gitlab.com/runner/configuration/advanced-configuration.html" target="_top"><span style="color:blue">자세히</span></a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">cat &gt; /tmp/test-config.template.toml &lt;&lt; EOF</span><br><span class="line">[[runners]]</span><br><span class="line">name = &quot;docker-runner&quot;</span><br><span class="line">[runners.docker]</span><br><span class="line">extra_hosts = [&quot;gitlab.example.com:192.168.33.12&quot;]</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">REGISTRATION_TOKEN=gCGg8tkK51TATVpjsBHz</span><br><span class="line">sudo gitlab-runner register \</span><br><span class="line">  --non-interactive \</span><br><span class="line">  --url http://gitlab.example.com/ \</span><br><span class="line">  --registration-token $REGISTRATION_TOKEN \</span><br><span class="line">  --executor &quot;docker&quot; \</span><br><span class="line">  --docker-image alpine:latest \</span><br><span class="line">  --description &quot;docker-runner&quot; \</span><br><span class="line">  --tag-list &quot;docker,aws&quot; \</span><br><span class="line">  --run-untagged=&quot;true&quot; \</span><br><span class="line">  --locked=&quot;false&quot; \</span><br><span class="line">  --access-level=&quot;not_protected&quot; \</span><br><span class="line">  --template-config /tmp/test-config.template.toml   </span><br></pre></td></tr></table></figure>
+<p>shell로 등록시 아래 에러가 나왔음. gitlab-runner verify 명령으로 처리.<br>‘New runner. Has not connected yet.’ <a href="https://gitlab.com/gitlab-org/gitlab-runner/-/issues/3750" target="_top"><span style="color:blue">에러</span></a></p>
+<h3 id="CICD-pipeline"><a href="#CICD-pipeline" class="headerlink" title="CICD pipeline"></a>CICD <a href="https://docs.gitlab.com/ee/ci/pipelines/" target="_top"><span style="color:blue">pipeline</span></a></h3><ul>
+<li><p>stage 는 정의를 하지 않으면 기본으로 5가지가 사용된다. (pre, build, test, deploy, post)<br><a href="https://docs.gitlab.com/ee/ci/yaml/#stage" target="_top"><span style="color:blue">자세히</span></a></p>
+</li>
+<li><p>runner 에서 동시작업을 하려고 하면 gitlab-runner에서 concurrent 옵션을 바꾸어준다. 기본은 1로 되어 있다. 이 부분을 바꾸어 주어야 여러개의 job을 동시에 실행할 수 있다. <a href="https://docs.gitlab.com/runner/configuration/advanced-configuration.html#the-global-section" target="_top"><span style="color:blue">자세히</span></a></p>
+</li>
+</ul>
+<ul>
+<li>pipeline이 성공했을 때만 <a href="https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html" target="_top"><span style="color:blue">Merge</span></a>하는 기능은 유용할 듯.</li>
+</ul>
+<ul>
+<li><p>ssh 이용하는 경우 다음 내용 참고. <a href="https://docs.gitlab.com/ee/ci/examples/deployment/composer-npm-deploy.html" target="_top"><span style="color:blue">자세히</span></a> </p>
+</li>
+<li><p>environments 이용하여 배포 기록 남기고 과거 버전으로 롤백 할 수 있음.</p>
+</li>
+</ul>
+<h4 id="기타-다른-툴과-연동"><a href="#기타-다른-툴과-연동" class="headerlink" title="기타, 다른 툴과 연동"></a>기타, 다른 툴과 연동</h4><p>terraform 의 remote state 를 저장하는 용도로 사용 가능함. terraform을 여러 명이 함께 사용을 하는 경우 필요한 기능임. <a href="https://docs.gitlab.com/ee/user/infrastructure/index.html#gitlab-managed-terraform-state" target="_top"><span style="color:blue">자세히</span></a> </p>
+<p><a target="_blank" rel="noopener" href="https://docs.gitlab.com/ee/administration/terraform_state.html">https://docs.gitlab.com/ee/administration/terraform_state.html</a></p>
+<h2 id="Github-Gitlab-CICD-environments-기능-비교"><a href="#Github-Gitlab-CICD-environments-기능-비교" class="headerlink" title="Github, Gitlab CICD environments 기능 비교"></a>Github, Gitlab CICD environments 기능 비교</h2><h3 id="gitlab-environments-예제"><a href="#gitlab-environments-예제" class="headerlink" title="gitlab environments 예제"></a>gitlab environments 예제</h3><p>environment 를 활용하는 간단한 예제이다. (.gitlab-ci.yml)</p>
+<ul>
+<li>사전에 environment 에 staging, production 을 구성한다.</li>
+<li>소스코드가 업데이트되면 ubuntu:20.04 docker 컨테이너에서 실행이 되며 staging 은 ssh를 이용하여 자동 배포가 된다.</li>
+<li>production 에는 수동으로 배포를 하도록 구성을 했다. (manual) 수동으로 배포를 할 수 있는 사람도 지정할 수 있다. <a href="https://docs.gitlab.com/ee/ci/yaml/#protecting-manual-jobs" target="_top"><span style="color:blue">자세히</span></a>    </li>
+<li>이제 environment 로 가면 staging, production 환경별로 배포한 기록을 볼 수 있고 특정 commit 으로 롤백을 할 수도 있다.</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">image: ubuntu:20.04</span><br><span class="line"></span><br><span class="line">before_script:</span><br><span class="line">  - apt-get update</span><br><span class="line">  - &#x27;which ssh-agent || apt-get install openssh-client -y&#x27;</span><br><span class="line">  - mkdir -p ~/.ssh</span><br><span class="line">  - eval $(ssh-agent -s)</span><br><span class="line">  - &#x27;[[ -f /.dockerenv ]] &amp;&amp; echo -e &quot;Host *\n\tStrictHostKeyChecking no\n\n&quot; &gt; ~/.ssh/config&#x27;</span><br><span class="line"></span><br><span class="line">deploy-staging:</span><br><span class="line">  stage: deploy</span><br><span class="line">  script:</span><br><span class="line">    - echo &quot;staging, This job deploys something from the $CI_COMMIT_BRANCH branch.&quot;</span><br><span class="line">    - ssh-add &lt;(echo &quot;$STAGING_PRIVATE_KEY&quot;)</span><br><span class="line">    - ssh -p22 test@192.168.33.14 &quot;mkdir -p test&quot;</span><br><span class="line">    - ssh -p22 test@192.168.33.14 &quot;date ; touch a.txt&quot;</span><br><span class="line">    - scp -P22 * test@192.168.33.14:test/</span><br><span class="line">    - scp -P22 index.html test@192.168.33.14:/var/www/html/index.html</span><br><span class="line">  environment:</span><br><span class="line">    name: staging</span><br><span class="line">    url: http://staging.example.com</span><br><span class="line"></span><br><span class="line">deploy-production:</span><br><span class="line">  stage: deploy</span><br><span class="line">  script:</span><br><span class="line">    - echo &quot;prd , This job deploys something from the $CI_COMMIT_BRANCH branch.&quot;</span><br><span class="line">  environment:</span><br><span class="line">    name: production</span><br><span class="line">    url: http://www.example.com</span><br><span class="line">  when: manual</span><br><span class="line">  only:</span><br><span class="line">    - master</span><br></pre></td></tr></table></figure>
+<p>&nbsp;</p>
+
+<p><strong><font size="3">Gitlab pipeline</font></strong></p>
+<center><img src="../image/gitlab-01-pipeline.png" class="img-responsive"></center>
+<p>&nbsp;</p>
+
+<p><strong><font size="3">Gitlab environments</font></strong></p>
+<center><img src="../image/gitlab-02-environments.png" class="img-responsive"></center>
+
+<p>&nbsp;</p>
+
+<p><strong><font size="3">Gitlab staging</font></strong></p>
+<center><img src="../image/gitlab-03-staging.png" class="img-responsive"></center>
+
+<p>&nbsp;</p>
+
+<h3 id="github-environments-예제"><a href="#github-environments-예제" class="headerlink" title="github environments 예제"></a>github environments 예제</h3><p>Github 은 environments 기능을 public repo나 enterprise plan 일 경우에만 지원하고 github team 의 private repo에는 지원 안함<br>Github 에서 environments 기능은 리뷰어의 승인이 있어야 배포 가능/트리거 발생후 일정 시간이 지나야 배포 가능/특정 브랜치만 배포 가능<br><a target="_blank" rel="noopener" href="https://docs.github.com/en/actions/reference/environments">https://docs.github.com/en/actions/reference/environments</a>  </p>
+<p>아래 github workflow 파일은 다음과 같은 내용을 담고 있다.</p>
+<ul>
+<li>사전에 production environments 에 Required reviewers 설정을 함.</li>
+<li>Pull Request 상태 일 때만 Dev에 배포</li>
+<li>메인에 커밋하거나 병합 할 때만 스테이징에 배포</li>
+<li>스테이징 후 승인을 받아 프로덕션에 배포. 해당 environments 의 Required reviewers 가 승인을 해 주어야 배포가 됨.</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"># https://dev.to/n3wt0n/everything-you-need-to-know-about-github-actions-environments-9p7</span><br><span class="line"></span><br><span class="line">name: CI + CD</span><br><span class="line"></span><br><span class="line">on:</span><br><span class="line">  push:</span><br><span class="line">    branches: [ main ]</span><br><span class="line">  pull_request:</span><br><span class="line">    branches: [ main ]</span><br><span class="line"></span><br><span class="line">  # Allows you to run this workflow manually from the Actions tab</span><br><span class="line">  workflow_dispatch:</span><br><span class="line"></span><br><span class="line">jobs:</span><br><span class="line">  Build:</span><br><span class="line">    runs-on: ubuntu-latest</span><br><span class="line">    steps:</span><br><span class="line">      - uses: actions/checkout@v2</span><br><span class="line">      - name: Compile</span><br><span class="line">        run: echo Hello, world!</span><br><span class="line"></span><br><span class="line">  DeployDev:</span><br><span class="line">    name: Deploy to Dev </span><br><span class="line">    if: github.event_name == &#x27;pull_request&#x27;</span><br><span class="line">    needs: [Build]</span><br><span class="line">    runs-on: ubuntu-latest</span><br><span class="line">    environment: </span><br><span class="line">      name: Development</span><br><span class="line">      url: &#x27;http://dev.example.com&#x27;</span><br><span class="line">    steps:</span><br><span class="line">      - name: Deploy</span><br><span class="line">        run: echo I am deploying! </span><br><span class="line"></span><br><span class="line">  DeployStaging:</span><br><span class="line">    name: Deploy to Staging </span><br><span class="line">    if: github.event.ref == &#x27;refs/heads/main&#x27;</span><br><span class="line">    needs: [Build]</span><br><span class="line">    runs-on: ubuntu-latest</span><br><span class="line">    environment: </span><br><span class="line">      name: Staging</span><br><span class="line">      url: &#x27;http://staging.example.com/&#x27;</span><br><span class="line">    steps:</span><br><span class="line">      - name: Deploy</span><br><span class="line">        run: echo I am deploying! </span><br><span class="line"></span><br><span class="line">  DeployProd:</span><br><span class="line">    name: Deploy to Production </span><br><span class="line">    needs: [DeployStaging]</span><br><span class="line">    runs-on: ubuntu-latest</span><br><span class="line">    environment: </span><br><span class="line">      name: Production</span><br><span class="line">      url: &#x27;http://www.example.com&#x27;</span><br><span class="line">    steps:</span><br><span class="line">      - name: Deploy</span><br><span class="line">        run: echo I am deploying!             </span><br></pre></td></tr></table></figure>
+<p>&nbsp;</p>
+
+<p><strong><font size="3">Github dev</font></strong></p>
+<center><img src="../image/github-01-dev.png" class="img-responsive"></center>
+
+<p>&nbsp;</p>
+
+<p><strong><font size="3">Github staging</font></strong></p>
+<center><img src="../image/github-02-staging.png" class="img-responsive"></center>
+
+<p>&nbsp;</p>
+
+<p><strong><font size="3">Github staging-log</font></strong></p>
+<center><img src="../image/github-03-staging-log.png" class="img-responsive"></center>
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://vntgcorp.github.io/CICD/" data-id="ckt9kq38a00004ouw0zpe67cm" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "VNTG"
+        },
+        "headline": "기존 버전관리 및 CICD 현황",
+        "image": "https://VntgCorp.github.io../../image/cicd_title.png",
+        "keywords": "",
+        "genre": "CICD",
+        "datePublished": "2021-05-31",
+        "dateCreated": "2021-05-31",
+        "dateModified": "2021-09-07",
+        "url": "https://VntgCorp.github.io/CICD/",
+        "description": "TJ@기술지원실소개:
+이 문서는 github, gitlab의 CICD 기능을 테스팅하고 검토하면서 정리한 자료입니다.
+
+&nbsp;
+
+선택 : 설치형 vs SaaS (Software as a Service)
+
+Gitlab은 모든 타입에서 설치형 지원
+Github는 Enterprise 에서만 설치형 지원
+
+IDC나 사내에서 CICD 를 쓸 일이 있으면 필요한",
+        "wordCount": 2276
+    }
+</script>
+
+</article>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>Contact:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="envelope" href="mailto:techblog@vntgcorp.com" target="_blank" rel="noopener">
+                        <i class="icon fa fa-envelope"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/VntgCorp" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="home" href="https://www.vntgcorp.com/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-home"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="http://blog.vntgcorp.com/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/manual/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            Gatsby 설치 및 사용 매뉴얼
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/Git/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Git의 대표적인 3가지 workflow</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/DockerWithoutDesktop/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/dockermoney.png)" alt="Docker Desktop 없이 Windows에서 Docker 사용하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Docker/">Docker</a></p>
+                            <p class="item-title"><a href="/DockerWithoutDesktop/" class="title">Docker Desktop 없이 Windows에서 Docker 사용하기</a></p>
+                            <p class="item-date"><time datetime="2021-09-07T07:00:00.000Z" itemprop="datePublished">2021-09-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/fastapi/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/logo-teal.png)" alt="FastAPI, WebSocket, 그리고 Docker" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/FastAPI/">FastAPI</a></p>
+                            <p class="item-title"><a href="/fastapi/" class="title">FastAPI, WebSocket, 그리고 Docker</a></p>
+                            <p class="item-date"><time datetime="2021-06-30T07:05:46.000Z" itemprop="datePublished">2021-06-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/clickup/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/clickupthumb.png)" alt="ClickUp 유저 매뉴얼" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ClickUp/">ClickUp</a></p>
+                            <p class="item-title"><a href="/clickup/" class="title">ClickUp 유저 매뉴얼</a></p>
+                            <p class="item-date"><time datetime="2021-06-15T07:05:46.000Z" itemprop="datePublished">2021-06-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/newpostmanual/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/manualthumb.jpg)" alt="포스트 추가 방법" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Static-Site-Generator/">Static Site Generator</a></p>
+                            <p class="item-title"><a href="/newpostmanual/" class="title">포스트 추가 방법</a></p>
+                            <p class="item-date"><time datetime="2021-06-09T01:05:46.000Z" itemprop="datePublished">2021-06-09</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/hexoVSgatsby/" class="thumbnail">
+    
+    
+        <span style="background-image:url(../../image/hexogatsby.png)" alt="Hexo &amp; Gatsby 차이점(주관적)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+
+
+  
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Static-Site-Generator/">Static Site Generator</a></p>
+                            <p class="item-title"><a href="/hexoVSgatsby/" class="title">Hexo &amp; Gatsby 차이점(주관적)</a></p>
+                            <p class="item-date"><time datetime="2021-06-03T04:05:46.000Z" itemprop="datePublished">2021-06-03</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CICD/">CICD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ClickUp/">ClickUp</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/FastAPI/">FastAPI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Static-Site-Generator/">Static Site Generator</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Static-Site-Generator/Gatsby/">Gatsby</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Static-Site-Generator/Hexo/">Hexo</a><span class="category-list-count">1</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class=""></a>
+                </h1>
+                <p>&copy; VNTG. All rights reserved. Powered by GitHub Pages.</p>
+                
+                <p> Created by <a href="https://github.com/jonggang08/VntgTechBlog" target="_blank">배종강 (Bae Jong-Gang)</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://vntgcorp.github.io/CICD/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

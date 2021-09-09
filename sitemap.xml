@@ -1,135 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	  xmlns:xhtml="http://www.w3.org/1999/xhtml"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">	  	  
-<!-- www.check-domains.com sitemap generator -->
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
 
 <url>
-   <loc>https://vntgcorp.github.io/</loc>
-   <lastmod>2021-09-07T05:28:07+00:00</lastmod>
-   <changefreq>monthly</changefreq>
-   <priority>1.0000</priority>
+  <loc>https://vntgcorp.github.io/</loc>
+  <lastmod>2021-09-07T06:45:41+00:00</lastmod>
+  <priority>1.00</priority>
 </url>
 <url>
-   <loc>https://vntgcorp.github.io/categories/CICD/</loc>
-   <lastmod>2021-09-07T05:28:07+00:00</lastmod>
-   <changefreq>monthly</changefreq>
-   <priority>0.8000</priority>
+  <loc>https://vntgcorp.github.io/categories/CICD/</loc>
+  <lastmod>2021-09-07T06:45:41+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-   <loc>https://vntgcorp.github.io/categories/ClickUp/</loc>
-   <lastmod>2021-09-07T05:28:07+00:00</lastmod>
-   <changefreq>monthly</changefreq>
-   <priority>0.8000</priority>
+  <loc>https://vntgcorp.github.io/categories/ClickUp/</loc>
+  <lastmod>2021-09-07T06:45:41+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-   <loc>https://vntgcorp.github.io/categories/Docker/</loc>
-   <lastmod>2021-09-07T05:28:07+00:00</lastmod>
-   <changefreq>monthly</changefreq>
-   <priority>0.8000</priority>
+  <loc>https://vntgcorp.github.io/categories/Docker/</loc>
+  <lastmod>2021-09-07T06:45:41+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-   <loc>https://vntgcorp.github.io/categories/FastAPI/</loc>
-   <lastmod>2021-09-07T05:28:07+00:00</lastmod>
-   <changefreq>monthly</changefreq>
-   <priority>0.8000</priority>
+  <loc>https://vntgcorp.github.io/categories/FastAPI/</loc>
+  <lastmod>2021-09-07T06:45:41+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-   <loc>https://vntgcorp.github.io/categories/Git/</loc>
-   <lastmod>2021-09-07T05:28:07+00:00</lastmod>
-   <changefreq>monthly</changefreq>
-   <priority>0.8000</priority>
+  <loc>https://vntgcorp.github.io/categories/Git/</loc>
+  <lastmod>2021-09-07T06:45:41+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-   <loc>https://vntgcorp.github.io/categories/Static-Site-Generator/</loc>
-   <lastmod>2021-09-07T05:28:07+00:00</lastmod>
-   <changefreq>monthly</changefreq>
-   <priority>0.8000</priority>
+  <loc>https://vntgcorp.github.io/categories/Static-Site-Generator/</loc>
+  <lastmod>2021-09-07T06:45:41+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-   <loc>https://vntgcorp.github.io/categories/Static-Site-Generator/Gatsby/</loc>
-   <lastmod>2021-09-07T05:28:07+00:00</lastmod>
-   <changefreq>monthly</changefreq>
-   <priority>0.8000</priority>
+  <loc>https://vntgcorp.github.io/categories/Static-Site-Generator/Gatsby/</loc>
+  <lastmod>2021-09-07T06:45:41+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-   <loc>https://vntgcorp.github.io/categories/Static-Site-Generator/Hexo/</loc>
-   <lastmod>2021-09-07T05:28:07+00:00</lastmod>
-   <changefreq>monthly</changefreq>
-   <priority>0.8000</priority>
+  <loc>https://vntgcorp.github.io/categories/Static-Site-Generator/Hexo/</loc>
+  <lastmod>2021-09-07T06:45:41+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-   <loc>https://vntgcorp.github.io/DockerWithoutDesktop/</loc>
-   <lastmod>2021-09-07T05:28:07+00:00</lastmod>
-   <changefreq>monthly</changefreq>
-   <priority>0.8000</priority>
+  <loc>https://vntgcorp.github.io/DockerWithoutDesktop/</loc>
+  <lastmod>2021-09-07T06:45:41+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-   <loc>https://vntgcorp.github.io/fastapi/</loc>
-   <lastmod>2021-09-07T05:28:07+00:00</lastmod>
-   <changefreq>monthly</changefreq>
-   <priority>0.8000</priority>
+  <loc>https://vntgcorp.github.io/fastapi/</loc>
+  <lastmod>2021-09-07T06:45:41+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-   <loc>https://vntgcorp.github.io/clickup/</loc>
-   <lastmod>2021-09-07T05:28:07+00:00</lastmod>
-   <changefreq>monthly</changefreq>
-   <priority>0.8000</priority>
+  <loc>https://vntgcorp.github.io/clickup/</loc>
+  <lastmod>2021-09-07T06:45:41+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-   <loc>https://vntgcorp.github.io/newpostmanual/</loc>
-   <lastmod>2021-09-07T05:28:07+00:00</lastmod>
-   <changefreq>monthly</changefreq>
-   <priority>0.8000</priority>
+  <loc>https://vntgcorp.github.io/newpostmanual/</loc>
+  <lastmod>2021-09-07T06:45:41+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-   <loc>https://vntgcorp.github.io/hexoVSgatsby/</loc>
-   <lastmod>2021-09-07T05:28:07+00:00</lastmod>
-   <changefreq>monthly</changefreq>
-   <priority>0.8000</priority>
+  <loc>https://vntgcorp.github.io/hexoVSgatsby/</loc>
+  <lastmod>2021-09-07T06:45:41+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-   <loc>https://vntgcorp.github.io/hexo/</loc>
-   <lastmod>2021-09-07T05:28:07+00:00</lastmod>
-   <changefreq>monthly</changefreq>
-   <priority>0.8000</priority>
+  <loc>https://vntgcorp.github.io/hexo/</loc>
+  <lastmod>2021-09-07T06:45:41+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-   <loc>https://vntgcorp.github.io/manual/</loc>
-   <lastmod>2021-09-07T05:28:07+00:00</lastmod>
-   <changefreq>monthly</changefreq>
-   <priority>0.8000</priority>
+  <loc>https://vntgcorp.github.io/manual/</loc>
+  <lastmod>2021-09-07T06:45:41+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-   <loc>https://vntgcorp.github.io/CICD/</loc>
-   <lastmod>2021-09-07T05:28:07+00:00</lastmod>
-   <changefreq>monthly</changefreq>
-   <priority>0.8000</priority>
+  <loc>https://vntgcorp.github.io/CICD/</loc>
+  <lastmod>2021-09-07T06:45:41+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-   <loc>https://vntgcorp.github.io/Git/</loc>
-   <lastmod>2021-09-07T05:28:07+00:00</lastmod>
-   <changefreq>monthly</changefreq>
-   <priority>0.8000</priority>
+  <loc>https://vntgcorp.github.io/Git/</loc>
+  <lastmod>2021-09-07T06:45:41+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-   <loc>https://vntgcorp.github.io/archives/2021/09/</loc>
-   <lastmod>2021-09-07T05:28:07+00:00</lastmod>
-   <changefreq>monthly</changefreq>
-   <priority>0.8000</priority>
+  <loc>https://vntgcorp.github.io/archives/2021/09/</loc>
+  <lastmod>2021-09-07T06:45:41+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-   <loc>https://vntgcorp.github.io/archives/2021/06/</loc>
-   <lastmod>2021-09-07T05:28:07+00:00</lastmod>
-   <changefreq>monthly</changefreq>
-   <priority>0.8000</priority>
+  <loc>https://vntgcorp.github.io/archives/2021/06/</loc>
+  <lastmod>2021-09-07T06:45:41+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-   <loc>https://vntgcorp.github.io/archives/2021/05/</loc>
-   <lastmod>2021-09-07T05:28:07+00:00</lastmod>
-   <changefreq>monthly</changefreq>
-   <priority>0.8000</priority>
+  <loc>https://vntgcorp.github.io/archives/2021/05/</loc>
+  <lastmod>2021-09-07T06:45:41+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
+
+
 </urlset>
